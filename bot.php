@@ -17,9 +17,23 @@ function GetWeather($city='tokyo')
 // 現在の天気
 $weather = GetWeather()// いずれは都市をユーザが指定できるようにしたい
             ->query->results->channel->item->condition->text; 
+// 現在の気温
+$temp = GetWeather()
+            ->query->results->channel->item->condition->temp;
 // 明日の天気
 $tomorrow_weather = GetWeather()
             ->query->results->channel->item->forecast[1]->text;
+// 明日の最高気温
+$tomorrow_high_temp = GetWeather()
+            ->query->results->channel->item->forecast[1]->high;
+// 明日の最低気温
+$tomorrow_low_temp = GetWeather()
+            ->query->results->channel->item->forecast[1]->low;
+// 華氏→摂氏変換関数
+function FtoC($f)
+{
+    return round(($f - 32) * 0.555, 1);
+}
 
 // ファイルの行をランダムに抽出
 $filelist = file('list.txt');
@@ -31,9 +45,16 @@ if ( shuffle($filelist) )
                 . $time->format('m/d H:i')
                 . ')の天気は'
                 . $weather
-                . 'で, 明日の天気は'
+                . 'です.'
+                . PHP_EOL
+                . '明日は'
                 . $tomorrow_weather
-                . 'です';
+                . 'で, '
+                . '最高気温は'
+                . FtoC($tomorrow_high_temp)
+                . '度, 最低気温は'
+                . FtoC($tomorrow_low_temp)
+                . '度です.';
 }
 
 // Twitterに接続
