@@ -9,7 +9,6 @@ class Weather
 	{
 		$this->city = $city;
 		$this->info = $this->GetWeather($city);// API呼び出しを1回で済ませるためにここでgetしておく
-		var_dump($this->info->forecast[1]->high);
 	}
 	// 華氏→摂氏変換関数
 	private function FtoC($f)
