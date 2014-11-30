@@ -12,11 +12,10 @@ shuffle($filelist);
 $message 	= $filelist[0] . PHP_EOL;
 
 // 現在の天気と明日の予報を入手
-$now_instance 		= new Weather('tokyo');
-$tomorrow_instance 	= new Weather('tokyo');
+$weather	= new Weather('tokyo');
 
-$now 		= $now_instance->GetCondition();
-$tomorrow 	= $tomorrow_instance->GetTomorrow();
+$now 		= $weather->GetCondition();
+$tomorrow 	= $weather->GetTomorrow();
 
 // 呟く文に天気情報を加える
 $message	.= '東京の現在('
