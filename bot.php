@@ -23,16 +23,16 @@ $message	.= '東京の現在('
 			. ')の天気は'
 			. $now['weather']
 			. '('
-			. $now[1]['high']
+			. $now['temp']
 			. '℃)です.'
 			. PHP_EOL
 			. '明日は'
 			. $tomorrow["weather"]
 			. 'で, '
 			. '最高気温は'
-			. $tomorrow[1]['high']
+			. $tomorrow['high']
 			. '℃, 最低気温は'
-			. $tomorrow[1]['low']
+			. $tomorrow['low']
 			. '℃ です.';
 
 // Twitterに接続
