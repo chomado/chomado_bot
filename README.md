@@ -1,7 +1,7 @@
 chomado_bot
 ===========
 
-Twitter の [@chomado_bot|https://twitter.com/chomado_bot] を作っていきます
+Twitter の [@chomado_bot](https://twitter.com/chomado_bot) を作っていきます
 
 ## 機能
 

@@ -8,7 +8,7 @@ class Weather
 	public function __construct($city)
 	{
 		$this->city = $city;
-		$this->info = $this->GetWeather($city);// API呼び出しを1回で済ませるためにここでgetしておく
+		$this->info = $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
 	}
 	// 華氏→摂氏変換関数
 	private function FtoC($f)
