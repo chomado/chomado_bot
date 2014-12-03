@@ -1,13 +1,13 @@
 <?php
 require_once('twitteroauth/twitteroauth.php');
-require_once('botconfig.php');
+require_once('static_data/botconfig.php');
 require_once('GetWeather.php');
 
 // 現在時刻. タイムゾーンはJST指定
 $time = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
 
 // ファイルの行をランダムに抽出
-$filelist 	= file('list.txt');
+$filelist 	= file('tweet_content_data_list/list.txt');
 shuffle($filelist);
 $message 	= $filelist[0] . PHP_EOL;
 

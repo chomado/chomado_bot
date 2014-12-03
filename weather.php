@@ -1,5 +1,6 @@
 <?php
 // 天気情報クラス
+// TODO: 同じインターフェイスで Weather::YahooAPI と Weather::LivedoorAPI ってつくっておいてあとで好きなほう選べるようにする
 class Weather
 {
 	private $city;
