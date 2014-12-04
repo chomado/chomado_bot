@@ -1,7 +1,7 @@
 <?php
-require_once('twitteroauth/twitteroauth.php');
-require_once('static_data/botconfig.php');
-require_once('GetWeather.php');
+require_once('twitteroauth/twitteroauth.php'); // OAuth
+require_once('static_data/botconfig.php'); // Twitterの各アクセスキー
+require_once('weather.php'); // Weatherクラスが入ってる
 
 // 現在時刻. タイムゾーンはJST指定
 $time = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
@@ -12,23 +12,22 @@ shuffle($filelist);
 $message 	= $filelist[0] . PHP_EOL;
 
 // 現在の天気と明日の予報を入手
-$weather	= new GetWeather('tokyo');
+$weather	= new Weather('tokyo');
 
 $now 		= $weather->GetCondition();
 $tomorrow 	= $weather->GetTomorrow();
 
 // 呟く文に天気情報を加える
-$message	.= $now['title']
-			. '('
-			. $time->format('m/d H:i')
-			. '現在) は'
+$message	.= '東京の現在('
+            . $time->format('m/d H:i')
+            . ')の天気は'
 			. $now['weather']
 			. '('
 			. $now['temp']
 			. '℃)です.'
 			. PHP_EOL
 			. '明日は'
-			. $tomorrow["weather"]
+			. $tomorrow['weather']
 			. 'で, '
 			. '最高気温は'
 			. $tomorrow['high']

@@ -1,11 +1,11 @@
 <?php
+require_once('static_data/WeatherDictionary.php');
 // 天気情報クラス
-// TODO: 同じインターフェイスで Weather::YahooAPI と Weather::LivedoorAPI ってつくっておいてあとで好きなほう選べるようにする
 class Weather
 {
-	private $city;
-	private $info;
-	
+	private $city; // String. 天気情報欲しい都市
+	private $info; // [String]. GetWeather()で得られる(元JSONの)情報が入る配列
+
 	public function __construct($city)
 	{
 		$this->city = $city;
@@ -30,20 +30,18 @@ class Weather
 	// 現在の天気
 	public function GetCondition()
 	{
-		$now = [
-			'weather'	=> $this->info->condition->text
+		return [
+			'weather'	=> WeatherDictionary::GetJapanese($this->info->condition->text)
 			, 'temp'	=> $this->FtoC($this->info->condition->temp)
 		];
-		return $now;
 	}
 	// 明日の天気情報
 	public function GetTomorrow()
 	{
-		$tomorrow = [
-			'weather'	=> $this->info->forecast[1]->text
+		return [
+			'weather'	=> WeatherDictionary::GetJapanese($this->info->forecast[1]->text)
 			, 'high'	=> $this->FtoC($this->info->forecast[1]->high)
 			, 'low'		=> $this->FtoC($this->info->forecast[1]->low)
 		];
-		return $tomorrow;
 	}
 }
