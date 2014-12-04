@@ -5,11 +5,13 @@ class Weather
 {
 	private $city; // String. 天気情報欲しい都市
 	private $info; // [String]. GetWeather()で得られる(元JSONの)情報が入る配列
+	private $weather; // new天気の英語日本語の辞書オブジェクトが入る
 
 	public function __construct($city)
 	{
 		$this->city = $city;
 		$this->info = $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
+		$this->weather = new WeatherDictionary();
 	}
 	// 華氏→摂氏変換関数
 	private function FtoC($f)
@@ -31,7 +33,7 @@ class Weather
 	public function GetCondition()
 	{
 		return [
-			'weather'	=> WeatherDictionary::GetJapanese($this->info->condition->text)
+			'weather'	=> $this->weather->GetJapanese($this->info->condition->text)
 			, 'temp'	=> $this->FtoC($this->info->condition->temp)
 		];
 	}
@@ -39,7 +41,7 @@ class Weather
 	public function GetTomorrow()
 	{
 		return [
-			'weather'	=> WeatherDictionary::GetJapanese($this->info->forecast[1]->text)
+			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->text)
 			, 'high'	=> $this->FtoC($this->info->forecast[1]->high)
 			, 'low'		=> $this->FtoC($this->info->forecast[1]->low)
 		];
