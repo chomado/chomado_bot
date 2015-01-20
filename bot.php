@@ -2,6 +2,7 @@
 require_once('twitteroauth/twitteroauth.php'); // OAuth
 require_once('static_data/botconfig.php'); // Twitterの各アクセスキー
 require_once('weather.php'); // Weatherクラスが入ってる
+require_once('date.php'); // Dateクラスが入ってる
 
 // ファイルの行をランダムに抽出
 $filelist   = file('tweet_content_data_list/list.txt');
@@ -9,11 +10,9 @@ shuffle($filelist);
 $message    = $filelist[0] . PHP_EOL;
 
 // 現在時刻. タイムゾーンはJST指定
-$time = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
+$time = new Date();
 // 経過日数%表示『今日で今年の約5.0%が過ぎました』
-$daysPassed = $time->format('z') / ($time->format('L')==0 ? 365 : 366);
-$message    .= '今日で今年の' . round($daysPassed * 100, 1) . '%が経過しました。'
-            . PHP_EOL;
+$message    .= $time->GetDateMessage();
 
 // 現在の天気と明日の予報を入手
 $weather    = new Weather('tokyo');
@@ -23,7 +22,7 @@ $tomorrow   = $weather->GetTomorrow();
 
 // 呟く文に天気情報を加える
 $message    .= '東京の現在('
-            . $time->format('m/d H:i')
+            . $time->GetTime()->format('H:i')
             . ')の天気は'
             . $now['weather']
             . '('

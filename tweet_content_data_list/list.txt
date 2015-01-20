@@ -5,7 +5,7 @@
 (*ﾟ▽ﾟ* っ)З ちょまぎょ!
 ┌（┌ *ﾟ▽ﾟ*）┐ チョマドォ...
 (((o(*ﾟ▽ﾟ*)o))) ちょまどbot
-https://github.com/chomado/chomado_bot/blob/master/tweet_content_data_list/list.txt からツイート.
+https://github.com/chomado/chomado_bot/blob/master/tweet_content_data_list/list.txt からツイート
 ちょまどbotは git管理されています https://github.com/chomado/chomado_bot
 ₍₍⁽⁽(ી(*ﾟ▽ﾟ*)ʃ)₎₎⁾⁾ ノリノリ！
 ┌（┌ *ﾟ▽ﾟ*）┐ ﾁｮﾏﾄﾞｫ..
