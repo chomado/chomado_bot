@@ -11,10 +11,8 @@ $message    = $filelist[0] . PHP_EOL;
 // 現在時刻. タイムゾーンはJST指定
 $time = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
 // 経過日数%表示『今日で今年の約5.0%が過ぎました』
-$newYearsDay = new DateTime($time->format('Y') . '-01-01 00:00:00', new DateTimeZone('Asia/Tokyo'));
-$lastDay    = new DateTime($time->format('Y') . '-12-31 23:59:00', new DateTimeZone('Asia/Tokyo'));
-$pastDays   = ($time->diff($newYearsDay)->days * 100) / $lastDay->diff($newYearsDay)->days;
-$message    .= '今日で今年の' . round($pastDays, 1) . '%が経過しました。'
+$daysPassed = $time->format('z') / ($time->format('L')==0 ? 365 : 366);
+$message    .= '今日で今年の' . round($daysPassed * 100, 1) . '%が経過しました。'
             . PHP_EOL;
 
 // 現在の天気と明日の予報を入手
