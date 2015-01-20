@@ -9,44 +9,22 @@ $filelist   = file('tweet_content_data_list/list.txt');
 shuffle($filelist);
 $message    = $filelist[0] . PHP_EOL;
 
-// 現在時刻. タイムゾーンはJST指定
-$time = new Date();
-// 経過日数%表示『今日で今年の約5.0%が過ぎました』
-$message    .= $time->GetDateMessage();
-
-// 現在の天気と明日の予報を入手
+// Dateクラスと天気クラス
+$time       = new Date();
 $weather    = new Weather('tokyo');
 
-$now        = $weather->GetCondition();
-$tomorrow   = $weather->GetTomorrow();
-
-// 呟く文に天気情報を加える
-$message    .= '東京の現在('
-            . $time->GetTime()->format('H:i')
-            . ')の天気は'
-            . $now['weather']
-            . '('
-            . $now['temp']
-            . '℃)です。'
+// 呟く文成形
+$message    .= $time->GetDateMessage()//『今日2015/01/20は第04週目の火曜です。今年の5.2%が経過しました。』
             . PHP_EOL
-            . '明日は'
-            . $tomorrow['weather']
-            . 'で、'
-            . '最高'
-            . $tomorrow['high']
-            . '℃、最低'
-            . $tomorrow['low']
-            . '℃です'
-            . PHP_EOL;
+            . $weather->GetWeatherMessage($time); //『東京の現在(00:03)の天気はうす曇り(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です』
 
 // Twitterに接続
 $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 
-$req = $connection -> OAuthRequest(
-    "https://api.twitter.com/1.1/statuses/update.json"
-    , "POST"
-    , array("status"=> $message )
+$req = $connection->OAuthRequest(
+        "https://api.twitter.com/1.1/statuses/update.json"
+        , "POST"
+        , array("status"=> $message )
     );
 
-//var_dump($req);
 var_dump($message);

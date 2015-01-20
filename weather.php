@@ -30,7 +30,7 @@ class Weather
 	}
 
 	// 現在の天気
-	public function GetCondition()
+	private function GetCondition()
 	{
 		return [
 			'weather'	=> $this->weather->GetJapanese($this->info->condition->text)
@@ -38,7 +38,7 @@ class Weather
 		];
 	}
 	// 明日の天気情報
-	public function GetTomorrow()
+	private function GetTomorrow()
 	{
 		return [
 			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->text)
@@ -46,4 +46,31 @@ class Weather
 			, 'low'		=> $this->FtoC($this->info->forecast[1]->low)
 		];
 	}
+
+	// 文章成形. 『東京の現在(21:15)の天気は晴れ(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です』
+	public function GetWeatherMessage($time)
+	{
+		$now 	  = $this->GetCondition();
+		$tomorrow = $this->GetTomorrow();
+
+		$message = '東京の現在('
+            . $time->GetTime()->format('H:i')
+            . ')の天気は'
+            . $now['weather']
+            . '('
+            . $now['temp']
+            . '℃)です。'
+            . PHP_EOL
+            . '明日は'
+            . $tomorrow['weather']
+            . 'で、'
+            . '最高'
+            . $tomorrow['high']
+            . '℃、最低'
+            . $tomorrow['low']
+            . '℃です'
+            . PHP_EOL;
+        return $message;
+	}
+
 }
