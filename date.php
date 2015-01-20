@@ -19,7 +19,7 @@ class Date
     // 今年に入ってから何%経過したか(%)が返る. 小数.
     private function DaysPassedPercent()
     {
-        return $this->time->format('z') * 100 / ($this->time->format('L')==0 ? 365 : 366);
+        return $this->time->format('z') * 100 / (365 + $this->time->format('L'));
     }
     private function GetWeekName($weekNumber)
     {
