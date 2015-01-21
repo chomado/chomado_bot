@@ -20,11 +20,7 @@ $message    .= $time->GetDateMessage()//『今日2015/01/20は第04週目の火�
 
 // Twitterに接続
 $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-
-$req = $connection->OAuthRequest(
-        "https://api.twitter.com/1.1/statuses/update.json"
-        , "POST"
-        , array("status"=> $message )
-    );
+// 投稿
+$connection->post('statuses/update', array("status"=> $message ));
 
 var_dump($message);
