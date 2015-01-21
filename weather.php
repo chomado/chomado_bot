@@ -22,11 +22,15 @@ class Weather
 	// yahoo の天気予報 API から引っ張ってくる
 	private function GetWeather()
 	{
-		return json_decode(file_get_contents(
-			'https://query.yahooapis.com/v1/public/yql?q=select%09*%20from%20%09weather.forecast%20%20where%20%09woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' 
-			. $this->city
-			. '%2C%20jp%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
-			))->query->results->channel->item;
+		$parameters = [
+			'q' => sprintf('select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="%s")', $this->city), //FIXME: cityのエンコード方法は?
+			'format' => 'json',
+			'env' => 'store://datatables.org/alltableswithkeys',
+		];
+		$query_uri = 'https://query.yahooapis.com/v1/public/yql?' . http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
+		//FIXME: file_get_contentsはサーバ側の理由等で当然失敗するかもしれない
+		//FIXME: allow_url_fopenが死んでるかもしれない
+		return json_decode(file_get_contents($query_uri))->query->results->channel->item;
 	}
 
 	// 現在の天気
