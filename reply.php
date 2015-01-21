@@ -8,6 +8,11 @@ if (empty($param['since_id'])) {
 	$param = null;
 }
 
+// ファイルの行をランダムに抽出
+$reply_list = file('tweet_content_data_list/reply_list.txt');
+shuffle($reply_list);
+$index 		= 0;
+
 // Twitterに接続
 $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 
@@ -18,10 +23,14 @@ if (!empty($res))
 {
 	foreach ($res as $re) 
 	{
-		$param['status'] = sprintf('@%s %sさん'
+		$param['status'] = sprintf('@%s %sさん%s%s'
 			, $re->user->screen_name
 			, $re->user->name
+			, PHP_EOL
+			, $reply_list[$index]
 			);
+		$index = $index < count($reply_list) - 1 ? $index + 1 : 0;
+
 		$param['in_reply_to_status_id'] = $re->id_str;
 		// 投稿
 		$connection->post('statuses/update', $param);
