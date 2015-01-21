@@ -61,7 +61,7 @@ class WeatherDictionary
     // という, String を返す. もし存在しない英単語が来たら, 英語のまま返す. (NULLは返さない)
     public function GetJapanese($english)
     {
-        $japanese = $this->dictionary[strtolower($english)];
-        return is_null($japanese) ? $english : $japanese;
+        $key = strtolower($english);
+        return isset($this->dictionary[$key]) ? $this->dictionary[$key] : $english;
     }
 }
