@@ -25,7 +25,7 @@ if (!empty($res))
 	{
 		$param['status'] = sprintf('@%s %sさん%s%s'
 			, $re->user->screen_name
-			, $re->user->name
+			, str_replace('@', '_', $re->user->name)
 			, PHP_EOL
 			, $reply_list[$index]
 			);
