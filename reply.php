@@ -23,11 +23,17 @@ if (!empty($res))
 {
 	foreach ($res as $re) 
 	{
+		// もし自分自身宛てだったら無視する.(無限ループになっちゃうから)
+		if ($re->user->screen_name === 'chomado_bot')
+			continue;
+		// ツイート本文
+		$message = $reply_list[$index];
+
 		$param['status'] = sprintf('@%s %sさん%s%s'
 			, $re->user->screen_name
 			, str_replace('@', '_', $re->user->name)
 			, PHP_EOL
-			, $reply_list[$index]
+			, $message
 			);
 		$index = $index < count($reply_list) - 1 ? $index + 1 : 0;
 
