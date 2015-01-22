@@ -33,7 +33,7 @@ if (!empty($res))
 			, $re->user->screen_name
 			, trim(preg_replace('!([@＠#＃.]|://)!u', " $1 ", $re->user->name))
 			, PHP_EOL
-			, $message
+			, mb_convert_encoding($message, "UTF-8", "auto");
 			);
 		$index = $index < count($reply_list) - 1 ? $index + 1 : 0;
 
