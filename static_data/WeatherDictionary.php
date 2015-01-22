@@ -42,8 +42,8 @@ class WeatherDictionary
 		"ところにより曇り(昼)",	// 30  partly cloudy (day)
 		"快晴(夜)", 			// 31  clear (night)
 		"陽気な晴れ",			// 32  sunny
-		"晴れ(夜)",				// 33  fair (night)
-		"晴れ(昼)",				// 34  fair (day)
+		"晴れ(夜)",			// 33  fair (night)
+		"晴れ(昼)",			// 34  fair (day)
 		"雨と雹",			// 35  mixed rain and hail
 		"暑い",				// 36  hot
 		"局地的に雷雨", 		// 37  isolated thunderstorms
@@ -57,13 +57,13 @@ class WeatherDictionary
 		"雷雨",				// 45  thundershowers
 		"吹雪",				// 46  snow showers
 		"ところにより雷雨",	// 47  isolated thundershowers
-		"(サービス停止中)"	// 3200    not available
+		3200 => "(サービス停止中)"   // 3200    not available
 	];
 	
 	// 引数:26 → 返り値: "曇り"
 	// という, String を返す. もし存在しないコードが来たら, 『???』を返す. (NULLは返さない)
 	public function GetJapanese($code)
 	{
-		return ($code < count($this->dictionary) - 2 || $code === 3200) ? $this->dictionary[$code] : "???";
+		return isset($this->dictionary[$code]) ? $this->dictionary[$code] : "???";
 	}
 }

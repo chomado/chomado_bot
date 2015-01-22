@@ -58,7 +58,7 @@ class Weather
 		$tomorrow = $this->GetTomorrow();
 
 		$message = sprintf(
-			'東京の現在(%s)の天気は%s(%d℃)です。%s明日は%s(最高%d℃/最低%d℃)です%s'
+			'東京の現在(%s)の天気は%s(%.1f℃)です。%s明日は%s(最高%.1f℃/最低%.1f℃)です%s'
             , $time->GetTime()->format('H:i')
             , $now['weather']
             , $now['temp']
