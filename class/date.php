@@ -38,17 +38,12 @@ class Date
     // 今日 15/1/20 は第04週目の水曜日です。今年の5.2%が経過しました。
     public function GetDateMessage()
     {
-        $message .= '今日'
-            . $this->time->format('Y/m/d')
-            . 'は第'
-            . $this->time->format('W')
-            . '週目の'
-            . $this->GetWeekName($this->time->format('w'))
-            . '曜です。'
-            . '今年の' 
-            . round($this->DaysPassedPercent(), 1) 
-            . '%が経過しました。'
-            . PHP_EOL;
+        $message = sprintf('今日 %s は第%d週目の%s曜日です。今年の%.1f%%が経過しました。%s'
+            , $this->time->format('y/m/d')
+            , $this->time->format('W')
+            , $this->GetWeekName($this->time->format('w'))
+            , $this->DaysPassedPercent()
+            , PHP_EOL);
         return $message;
     }
 }

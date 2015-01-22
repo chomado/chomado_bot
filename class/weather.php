@@ -1,6 +1,6 @@
 <?php
-require_once('static_data/WeatherDictionary.php');
-// 天気情報クラス
+require_once dirname(__FILE__) . '/../static_data/WeatherDictionary.php';// 天気情報クラス
+
 class Weather
 {
 	private $city; // String. 天気情報欲しい都市

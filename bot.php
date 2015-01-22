@@ -1,11 +1,11 @@
 <?php
 require_once('twitteroauth/twitteroauth.php'); // OAuth
 require_once('static_data/botconfig.php'); // Twitterの各アクセスキー
-require_once('weather.php'); // Weatherクラスが入ってる
-require_once('date.php'); // Dateクラスが入ってる
+require_once('class/weather.php'); // Weatherクラスが入ってる
+require_once('class/date.php'); // Dateクラスが入ってる
 
 // ファイルの行をランダムに抽出
-$filelist   = file('tweet_content_data_list/list.txt');
+$filelist   = file(dirname(__FILE__) . '/tweet_content_data_list/list.txt');
 shuffle($filelist);
 $message    = $filelist[0] . PHP_EOL;
 

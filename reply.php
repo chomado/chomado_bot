@@ -3,7 +3,7 @@ require_once('twitteroauth/twitteroauth.php'); // OAuth
 require_once('static_data/botconfig.php'); // Twitterの各アクセスキー
 
 // 最終投稿IDを取得
-$param['since_id'] = file_get_contents('last_id.txt');
+$param['since_id'] = file_get_contents('tweet_content_data_list/last_id.txt');
 if (empty($param['since_id'])) {
 	$param = null;
 }
