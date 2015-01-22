@@ -31,7 +31,7 @@ if (!empty($res))
 
 		$param['status'] = sprintf('@%s %sさん%s%s'
 			, $re->user->screen_name
-			, str_replace('@', '_', $re->user->name)
+			, trim(preg_replace('!([@＠#＃.]|://)!u', " $1 ", $re->user->name))
 			, PHP_EOL
 			, $message
 			);
