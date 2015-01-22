@@ -4,64 +4,66 @@
 */
 class WeatherDictionary
 {
-    function __construct()
-    {
-    }
-    
-    private $dictionary = [
-        "tornado"                 => "竜巻",
-        "tropical storm"          => "台風",
-        "hurﬁcane"                => "ハリケーン",
-        "severe thunderstorms"    => "激しい雷雨",
-        "thunderstorms"           => "雷雨",
-        "mixed rain and snow"     => "雪混じりの雨",
-        "mixed rain and sleet"    => "みぞれ混じりの雨",
-        "mixed snow and sleet"    => "みぞれ混じりの雪",
-        "freezing drizzle"        => "着氷性の霧雨",
-        "drizzle"                 => "霧雨",
-        "freezing rain"           => "着氷性の雨",
-        "showers"                 => "にわか雨",
-        "snow flurries"           => "雪の突風",
-        "light snow showers"      => "時々雪",
-        "blowing snow"            => "吹雪",
-        "snow"                    => "雪",
-        "hail"                    => "雹",
-        "sleet"                   => "みぞれ",
-        "dust"                    => "ほこり",
-        "foggy"                   => "霧",
-        "haze"                    => "靄",
-        "seoky"                   => "埃っぽい",
-        "blustedy"                => "荒れ模様",
-        "windy"                   => "強風",
-        "cold"                    => "寒い",
-        "cloudy"                  => "曇り",
-        "mostly cloudy"           => "うす曇り",
-        "partly cloudy"           => "ところにより曇り",
-        "clear"                   => "快晴",
-        "mostly clear"            => "おおむね快晴",
-        "sunny"                   => "おおむね晴れ",
-        "fair"                    => "晴れ",
-        "mixed rain and hail"     => "雨と雹",
-        "hot"                     => "暑い",
-        "isolated thunderstorms"  => "局地的に雷雨",
-        "scattred thundestorms"   => "ところにより雷雨",
-        "scattered showwrs"       => "ところによりにわか雨",
-        "scattered snow showers"  => "吹雪",
-        "heavy snow"              => "大雪",
-        "thundershowers"          => "雷雨",
-        "snow shwers"             => "吹雪",
-        "isolated thundershowers" => "ところにより雷雨",
-        "smoky"                   => "黒霧",
-        "am showers"              => "午前にわか雨",
-        "pm showers"              => "午後にわか雨",
-        "light rain"              => "軽い雨",
-    ];
+	function __construct()
+	{
+	}
 
-    // 引数:"Sunny" → 返り値: "晴れ"
-    // という, String を返す. もし存在しない英単語が来たら, 英語のまま返す. (NULLは返さない)
-    public function GetJapanese($english)
-    {
-        $key = strtolower($english);
-        return isset($this->dictionary[$key]) ? $this->dictionary[$key] : $english;
-    }
+	private $dictionary = [
+		"竜巻", 				// 0   tornado
+		"台風", 				// 1   tropical storm
+		"ハリケーン", 		// 2   hurricane
+		"激しい雷雨", 		// 3   severe thunderstorms
+		"雷雨", 				// 4   thunderstorms
+		"雪混じりの雨",		// 5   mixed rain and snow
+		"みぞれ混じりの雨", 	// 6   mixed rain and sleet
+		"みぞれ混じりの雪",	// 7   mixed snow and sleet
+		"着氷性の霧雨", 		// 8   freezing drizzle
+		"霧雨",				// 9   drizzle
+		"着氷性の雨",			// 10  freezing rain
+		"にわか雨", 			// 11  showers
+		"にわか雨", 			// 12  showers
+		"雪の突風", 			// 13  snow flurries
+		"時々雪",			// 14  light snow showers
+		"吹雪",				// 15  blowing snow
+		"雪",				// 16  snow
+		"雹",				// 17  hail
+		"みぞれ",			// 18  sleet
+		"ほこり",			// 19  dust
+		"霧",				// 20  foggy
+		"靄",				// 21  haze
+		"埃っぽい",			// 22  smoky
+		"荒れ模様",			// 23  blustery
+		"強風",				// 24  windy
+		"寒い",				// 25  cold
+		"曇り", 				// 26  cloudy
+		"おおむね曇り(夜)",	// 27  mostly cloudy (night)
+		"おおむね曇り(昼)",	// 28  mostly cloudy (day)
+		"ところにより曇り(夜)",	// 29  partly cloudy (night)
+		"ところにより曇り(昼)",	// 30  partly cloudy (day)
+		"快晴(夜)", 			// 31  clear (night)
+		"陽気な晴れ",			// 32  sunny
+		"晴れ(夜)",				// 33  fair (night)
+		"晴れ(昼)",				// 34  fair (day)
+		"雨と雹",			// 35  mixed rain and hail
+		"暑い",				// 36  hot
+		"局地的に雷雨", 		// 37  isolated thunderstorms
+		"ところにより雷雨",	// 38  scattered thunderstorms
+		"ところにより雷雨",	// 39  scattered thunderstorms
+		"ところによりにわか雨", //40  scattered showers
+		"大雪",				// 41  heavy snow
+		"吹雪",				// 42  scattered snow showers
+		"大雪",				// 43  heavy snow
+		"ところにより曇り",	// 44  partly cloudy
+		"雷雨",				// 45  thundershowers
+		"吹雪",				// 46  snow showers
+		"ところにより雷雨",	// 47  isolated thundershowers
+		"(サービス停止中)"	// 3200    not available
+	];
+	
+	// 引数:26 → 返り値: "曇り"
+	// という, String を返す. もし存在しないコードが来たら, 『???』を返す. (NULLは返さない)
+	public function GetJapanese($code)
+	{
+		return ($code < count($this->dictionary) - 2 || $code === 3200) ? $this->dictionary[$code] : "???";
+	}
 }

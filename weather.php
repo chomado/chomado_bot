@@ -37,7 +37,7 @@ class Weather
 	private function GetCondition()
 	{
 		return [
-			'weather'	=> $this->weather->GetJapanese($this->info->condition->text)
+			'weather'	=> $this->weather->GetJapanese($this->info->condition->code)
 			, 'temp'	=> $this->FtoC($this->info->condition->temp)
 		];
 	}
@@ -45,7 +45,7 @@ class Weather
 	private function GetTomorrow()
 	{
 		return [
-			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->text)
+			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->code)
 			, 'high'	=> $this->FtoC($this->info->forecast[1]->high)
 			, 'low'		=> $this->FtoC($this->info->forecast[1]->low)
 		];
@@ -57,23 +57,16 @@ class Weather
 		$now 	  = $this->GetCondition();
 		$tomorrow = $this->GetTomorrow();
 
-		$message = '東京の現在('
-            . $time->GetTime()->format('H:i')
-            . ')の天気は'
-            . $now['weather']
-            . '('
-            . $now['temp']
-            . '℃)です。'
-            . PHP_EOL
-            . '明日は'
-            . $tomorrow['weather']
-            . 'で、'
-            . '最高'
-            . $tomorrow['high']
-            . '℃、最低'
-            . $tomorrow['low']
-            . '℃です'
-            . PHP_EOL;
+		$message = sprintf(
+			'東京の現在(%s)の天気は%s(%d℃)です。%s明日は%s(最高%d℃/最低%d℃)です%s'
+            , $time->GetTime()->format('H:i')
+            , $now['weather']
+            , $now['temp']
+            , PHP_EOL
+            , $tomorrow['weather']
+            , $tomorrow['high']
+            , $tomorrow['low']
+            , PHP_EOL);
         return $message;
 	}
 
