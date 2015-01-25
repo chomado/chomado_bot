@@ -35,9 +35,9 @@ if (!empty($res))
         // ツイート本文
         $chat       = new Chat($re->user->screen_name, $re->user->name, $re->text);
         $message    = sprintf('%s%s%s%s'
-            , $reply_list[$index]
-            , PHP_EOL
             , $chat->ResText()
+            , PHP_EOL
+            , $reply_list[$index]
             , PHP_EOL
             );
 
