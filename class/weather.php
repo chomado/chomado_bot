@@ -9,9 +9,9 @@ class Weather
 
 	public function __construct($city)
 	{
-		$this->city = $city;
-		$this->info = $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
-		$this->weather = new WeatherDictionary();
+		$this->city 	= $city;
+		$this->info 	= $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
+		$this->weather 	= new WeatherDictionary();
 	}
 	// 華氏→摂氏変換関数
 	private function FtoC($f)
@@ -23,11 +23,14 @@ class Weather
 	private function GetWeather()
 	{
 		$parameters = [
-			'q' => sprintf('select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="%s")', $this->city), //FIXME: cityのエンコード方法は?
-			'format' => 'json',
-			'env' => 'store://datatables.org/alltableswithkeys',
+			'q' 		=> sprintf(
+							'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="%s")'
+							, $this->city), //FIXME: cityのエンコード方法は?
+			'format' 	=> 'json',
+			'env' 		=> 'store://datatables.org/alltableswithkeys',
 		];
-		$query_uri = 'https://query.yahooapis.com/v1/public/yql?' . http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
+		$query_uri = 'https://query.yahooapis.com/v1/public/yql?'
+					. http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
 		//FIXME: file_get_contentsはサーバ側の理由等で当然失敗するかもしれない
 		//FIXME: allow_url_fopenが死んでるかもしれない
 		return json_decode(file_get_contents($query_uri))->query->results->channel->item;
@@ -37,7 +40,7 @@ class Weather
 	private function GetCondition()
 	{
 		return [
-			'weather'	=> $this->weather->GetJapanese($this->info->condition->code)
+			'weather'	=> $this->weather->GetJapanese($this->info->condition->code, $this->info->forecast[1]->text)
 			, 'temp'	=> $this->FtoC($this->info->condition->temp)
 		];
 	}
@@ -45,7 +48,7 @@ class Weather
 	private function GetTomorrow()
 	{
 		return [
-			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->code)
+			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->code, $this->info->forecast[1]->text)
 			, 'high'	=> $this->FtoC($this->info->forecast[1]->high)
 			, 'low'		=> $this->FtoC($this->info->forecast[1]->low)
 		];

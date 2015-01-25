@@ -61,9 +61,11 @@ class WeatherDictionary
 	];
 	
 	// 引数:26 → 返り値: "曇り"
-	// という, String を返す. もし存在しないコードが来たら, 『???』を返す. (NULLは返さない)
-	public function GetJapanese($code)
+	// という, String を返す. もし存在しないコードが来たら, 『?(id)? + 英語』を返す.
+	public function GetJapanese($code, $english)
 	{
-		return isset($this->dictionary[$code]) ? $this->dictionary[$code] : "???";
+		return isset($this->dictionary[$code])
+            ? $this->dictionary[$code]
+            : sprintf('?%d? (%s)', $code, $english);
 	}
 }
