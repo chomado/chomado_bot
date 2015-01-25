@@ -14,8 +14,8 @@ if (empty($param['since_id'])) {
 var_dump('$param[since_id] : ' . PHP_EOL);
 var_dump($param['since_id']);
 // ファイルの行をランダムに抽出
-$reply_list = file('tweet_content_data_list/reply_list.txt');
-shuffle($reply_list);
+$face_list = file('tweet_content_data_list/face_list.txt');
+shuffle($face_list);
 $index      = 0;
 
 // Twitterに接続
@@ -34,10 +34,9 @@ if (!empty($res))
         
         // ツイート本文
         $chat       = new Chat($re->user->screen_name, $re->user->name, $re->text);
-        $message    = sprintf('%s%s%s%s'
+        $message    = sprintf('%s %s%s'
             , $chat->ResText()
-            , PHP_EOL
-            , $reply_list[$index]
+            , $face_list[$index]
             , PHP_EOL
             );
 
@@ -47,7 +46,7 @@ if (!empty($res))
             , PHP_EOL
             , $message
             );
-        $index = $index < count($reply_list) - 1 ? $index + 1 : 0;
+        $index = $index < count($face_list) - 1 ? $index + 1 : 0;
 
         $param['in_reply_to_status_id'] = $re->id_str;
         // 投稿

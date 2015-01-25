@@ -15,9 +15,10 @@ class Chat
 
     public function __construct($context, $nickname, $text)
     {
+        $text_trimmed = trim(str_replace('@chomado_bot', '', $text));
         var_dump('送るテキスト:');
-        var_dump($text);
-        $this->response = $this->GetData($context, $nickname, $text);
+        var_dump($text_trimmed);
+        $this->response = $this->GetData($context, $nickname, $text_trimmed);
     }
     // docomoの対話APIを叩いてレスポンスを貰ってくる (JSON形式)
     private function GetData($context, $nickname, $text)
