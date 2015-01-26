@@ -20,13 +20,14 @@ class Chat
         var_dump($text_trimmed);
         $this->response = $this->GetData($context, $nickname, $text_trimmed);
     }
+
     // docomoの対話APIを叩いてレスポンスを貰ってくる (JSON形式)
     private function GetData($context, $nickname, $text)
     {
         $user_data = array(
-            'utt'       => $text,
-            'context'   => $context,
-            'nickname'  => $nickname,
+            'utt'       => (string)$text,
+            'context'   => (string)$context,
+            'nickname'  => (string)$nickname,
         );
         $url        = sprintf(
                         'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s'
@@ -39,6 +40,7 @@ class Chat
         $contents = json_decode(file_get_contents($url, false, stream_context_create($options)));
         return $contents;
     }
+
     public function ResText()
     {
         var_dump('返ってきたデータ:' . PHP_EOL);
@@ -48,5 +50,9 @@ class Chat
             , PHP_EOL
             );
         return $message;
+    }
+
+    public function GetChatContextId() {
+        return isset($this->response->context) ? $this->response->context : '';
     }
 }
