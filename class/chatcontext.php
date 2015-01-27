@@ -37,7 +37,7 @@ class ChatContext {
      * @see load()
      * @see save()
      */
-    private $fh;    // データファイル操作時のファイルハンドル
+    private $fh;
 
     /**
      * データファイルから読み込んだデータ and/or 追加/削除したデータを保持する変数
