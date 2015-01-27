@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../static_data/WeatherDictionary.php';// 天気情報クラス
+require_once __DIR__ . '/WeatherDictionary.php';// 天気情報クラス
 
 class Weather
 {
