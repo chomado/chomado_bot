@@ -36,7 +36,12 @@ if (!empty($res))
             continue;
         
         // ツイート本文
-        $chat       = new Chat($chat_context->getContextId($re->user->screen_name), $re->user->name, $re->text);
+        $chat = new Chat(
+            $chat_context->getContextId($re->user->screen_name),
+            $re->user->name,
+            $re->text,
+            $chat_context->getMode($re->user->screen_name)
+        );
         $message    = sprintf('%s %s%s'
             , $chat->ResText()
             , $face_list[$index]
@@ -55,7 +60,11 @@ if (!empty($res))
         // 投稿
         $connection->post('statuses/update', $param);
 
-        $chat_context->setContextId($re->user->screen_name, $chat->GetChatContextId());
+        $chat_context->setContext(
+            $re->user->screen_name,
+            $chat->GetChatContextId(),
+            $chat->GetChatMode()
+        );
     }
     // 最終投稿IDを書き込む
     file_put_contents('tweet_content_data_list/last_id.txt', $res[0]->id_str);
