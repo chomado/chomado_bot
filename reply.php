@@ -1,7 +1,8 @@
 <?php
-require_once('twitteroauth/twitteroauth.php'); // OAuth
-require_once('static_data/botconfig.php'); // Twitterの各アクセスキー
-require_once('class/chat.php'); // docomo対話APIのクラス
+require_once(__DIR__ . '/twitteroauth/twitteroauth.php'); // OAuth
+require_once(__DIR__ . '/static_data/botconfig.php'); // Twitterの各アクセスキー
+require_once(__DIR__ . '/class/chat.php'); // docomo対話APIのクラス
+require_once(__DIR__ . '/class/chatcontext.php');
 
 var_dump('$param[since_id] : ' . PHP_EOL);
 var_dump($param['since_id']);
@@ -26,6 +27,8 @@ $res = $connection->get('statuses/mentions_timeline', $param);
 
 if (!empty($res))
 {
+    $chat_context = new ChatContext();
+
     foreach ($res as $re) 
     {
         // もし自分自身宛てだったら無視する.(無限ループになっちゃうから)
@@ -33,7 +36,7 @@ if (!empty($res))
             continue;
         
         // ツイート本文
-        $chat       = new Chat($re->user->screen_name, $re->user->name, $re->text);
+        $chat       = new Chat($chat_context->getContextId($re->user->screen_name), $re->user->name, $re->text);
         $message    = sprintf('%s %s%s'
             , $chat->ResText()
             , $face_list[$index]
@@ -51,6 +54,8 @@ if (!empty($res))
         $param['in_reply_to_status_id'] = $re->id_str;
         // 投稿
         $connection->post('statuses/update', $param);
+
+        $chat_context->setContextId($re->user->screen_name, $chat->GetChatContextId());
     }
     // 最終投稿IDを書き込む
     file_put_contents('tweet_content_data_list/last_id.txt', $res[0]->id_str);
