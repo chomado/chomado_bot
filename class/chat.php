@@ -25,9 +25,9 @@ class Chat
     private function GetData($context, $nickname, $text)
     {
         $user_data = array(
-            'utt'       => (string)$text,
+            'utt'       => self::sjisSafe((string)$text),
             'context'   => (string)$context,
-            'nickname'  => (string)$nickname,
+            'nickname'  => self::sjisSafe((string)$nickname),
         );
         $url        = sprintf(
                         'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s'
@@ -54,5 +54,23 @@ class Chat
 
     public function GetChatContextId() {
         return isset($this->response->context) ? $this->response->context : '';
+    }
+
+    /**
+     * 与えられた文字列を Shift-JIS で収まる範囲に変換する
+     *
+     * docomo APIがどうも Shift-JIS で収まらないものを与えると Bad Request で死ぬようなので
+     * とりあえず SJIS で収まるもののみを送るようにしてみる
+     *
+     * @param string $text 変換対象文字列
+     * @return string
+     */
+    private static function sjisSafe($text) {
+        mb_substitute_character(0x3013); // 変換できない文字をゲタにする
+        return mb_convert_encoding(
+            mb_convert_encoding($text, 'CP932', 'UTF-8'),
+            'UTF-8',
+            'CP932'
+        );
     }
 }
