@@ -1,6 +1,8 @@
 chomado_bot
 ===========
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/chomado/chomado_bot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Twitter の [@chomado_bot](https://twitter.com/chomado_bot) を作っていきます
 
 ## 機能 (追加されたのが新しい順. 更新履歴みたいな感じ)
