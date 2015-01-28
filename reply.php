@@ -43,6 +43,8 @@ if(is_array($res) && !empty($res))
 
     foreach ($res as $re) 
     {
+        $param = [];
+
         echo "届いたメッセージ:\n";
         printf("[@%s] %s - %s\n", $re->user->screen_name, $re->user->name, $re->text);
 
