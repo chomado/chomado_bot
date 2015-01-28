@@ -15,7 +15,8 @@ Twitter の [@chomado_bot](https://twitter.com/chomado_bot) を作っていき�
 
 > @junjiru じゅんじさん  
 > BLは好きですね  
->  ┌（┌ *ﾟ▽ﾟ*）┐  
+>  ┌（┌ \*ﾟ▽ﾟ\*）┐  
+  
 [https://twitter.com/chomado_bot/status/560323916413956096](https://twitter.com/chomado_bot/status/560323916413956096)
   
 ### ver. 0.3.0
