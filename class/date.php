@@ -39,7 +39,7 @@ class Date
     public function GetDateMessage()
     {
         $message = sprintf('今日 %s は第%d週目の%s曜日です。今年の%.1f%%が経過しました。%s'
-            , $this->time->format('y/m/d')
+            , $this->time->format('Y/m/d')
             , $this->time->format('W')
             , $this->GetWeekName($this->time->format('w'))
             , $this->DaysPassedPercent()

@@ -32,7 +32,7 @@ if (!empty($res))
     foreach ($res as $re) 
     {
         // もし自分自身宛てだったら無視する.(無限ループになっちゃうから)
-        if ($re->user->screen_name === 'chomado_bot')
+        if ($re->user->screen_name === 'chomado_bot' || $re->user->screen_name === 'hyuki')
             continue;
         
         // ツイート本文
