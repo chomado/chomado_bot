@@ -27,6 +27,9 @@ $res = $connection->get('statuses/mentions_timeline', $param);
 
 if (!empty($res))
 {
+    // 最終投稿IDを書き込む
+    file_put_contents(__DIR__ . '/tweet_content_data_list/last_id.txt', $res[0]->id_str);
+
     $chat_context = new ChatContext();
 
     foreach ($res as $re) 
@@ -66,6 +69,4 @@ if (!empty($res))
             $chat->GetChatMode()
         );
     }
-    // 最終投稿IDを書き込む
-    file_put_contents('tweet_content_data_list/last_id.txt', $res[0]->id_str);
 }
