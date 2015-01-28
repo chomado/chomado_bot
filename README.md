@@ -7,6 +7,25 @@ Twitter の [@chomado_bot](https://twitter.com/chomado_bot) を作っていき�
 
 ## 機能 (追加されたのが新しい順. 更新履歴みたいな感じ)
 
+### ver. 0.4.0
+2015/1/24
+
+* docomo の対話API を使って, リプライでの対話機能をつけた.
+* [雑談対話 | docomo Developer support | NTTドコモ](https://dev.smt.docomo.ne.jp/?p=docs.api.page&api_docs_id=5#tag01)
+
+> @junjiru じゅんじさん
+> BLは好きですね
+>  ┌（┌ *ﾟ▽ﾟ*）┐
+[https://twitter.com/chomado_bot/status/560323916413956096](https://twitter.com/chomado_bot/status/560323916413956096)
+
+### ver. 0.3.0
+2015/1/22
+
+* リプライ機能付けた
+
+> @chomado ちょまど @ bot開発楽しいさん
+> わーい(((o(\*ﾟ▽ﾟ\*)o)))わーい!(((o(\*ﾟ▽ﾟ\*)o)))
+
 ### ver. 0.2.0
 2015/1/20
 
@@ -93,5 +112,4 @@ Twitter の [@chomado_bot](https://twitter.com/chomado_bot) を作っていき�
 
 ## 今後やりたい機能
 
-* リプライ
 * メンションで任意の都市の天気を取得
