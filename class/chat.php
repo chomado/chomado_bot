@@ -1,33 +1,52 @@
 <?php
-require_once(dirname(__FILE__) . '/../twitteroauth/twitteroauth.php'); // OAuth
-require_once(dirname(__FILE__) . '/../static_data/botconfig.php'); // Twitterの各アクセスキー
+require_once(__DIR__ . '/../twitteroauth/twitteroauth.php'); // OAuth
+require_once(__DIR__ . '/../static_data/botconfig.php'); // Twitterの各アクセスキー
 
-// docomo の 雑談対話APIを使う
-// new Chat($context, $nickname, $text)
-    // 引数説明
-    // $context;    // 会話のつながり保持のID. 
-    // $nickname;   // 名前
-    // $text;       // リプライで来た本文.
-
+/**
+ * docomo の雑談対話APIを使うためのクラス
+ */
 class Chat
 {
+    /**
+     * API呼び出し結果オブジェクト
+     *
+     * @var object
+     */
     private $response;
 
-    public function __construct($context, $nickname, $text)
+    /**
+     * コンストラクタ
+     *
+     * @param string $context   会話のコンテキストID(API仕様参照)
+     * @param string $nickname  会話している人間側の名前
+     * @param string $text      人間側の入力テキスト
+     * @param string $mode      会話のモード(API仕様参照
+     * @see GetData()
+     */
+    public function __construct($context, $nickname, $text, $mode)
     {
         $text_trimmed = trim(str_replace('@chomado_bot', '', $text));
         var_dump('送るテキスト:');
         var_dump($text_trimmed);
-        $this->response = $this->GetData($context, $nickname, $text_trimmed);
+        $this->response = $this->GetData($context, $nickname, $text_trimmed, $mode);
     }
 
-    // docomoの対話APIを叩いてレスポンスを貰ってくる (JSON形式)
-    private function GetData($context, $nickname, $text)
+    /**
+     * docomoの対話APIを叩いてレスポンスを貰ってくる
+     *
+     * @param string $context   会話のコンテキストID(API仕様参照)
+     * @param string $nickname  会話している人間側の名前
+     * @param string $text      人間側の入力テキスト
+     * @param string $mode      会話のモード(API仕様参照
+     * @return object レスポンスのJSONをデコードしたオブジェクト
+     */
+    private function GetData($context, $nickname, $text, $mode)
     {
         $user_data = array(
             'utt'       => self::sjisSafe((string)$text),
             'context'   => (string)$context,
             'nickname'  => self::sjisSafe((string)$nickname),
+            'mode'      => (string)$mode,
         );
         $url        = sprintf(
                         'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s'
@@ -41,6 +60,11 @@ class Chat
         return $contents;
     }
 
+    /**
+     * ユーザに返すべき会話内容を取得する
+     *
+     * @return string 会話内容
+     */
     public function ResText()
     {
         var_dump('返ってきたデータ:' . PHP_EOL);
@@ -52,8 +76,22 @@ class Chat
         return $message;
     }
 
+    /**
+     * 応答に含まれるコンテキストIDを取得する
+     *
+     * @return string
+     */
     public function GetChatContextId() {
         return isset($this->response->context) ? $this->response->context : '';
+    }
+
+    /**
+     * 応答に含まれる会話モードを取得する
+     *
+     * @return string "dialog" or "srtr" ( or "" )
+     */
+    public function GetChatMode() {
+        return isset($this->response->mode) ? $this->response->mode : '';
     }
 
     /**

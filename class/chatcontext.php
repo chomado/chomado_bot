@@ -53,8 +53,6 @@ class ChatContext {
      * ```
      *
      * @var array
-     * @see setContextId()
-     * @see getContextId()
      */
     private $data;
 
@@ -79,16 +77,18 @@ class ChatContext {
     }
 
     /**
-     * docomoAPIから指定されたコンテキストIDを保存する
+     * docomoAPIから指定されたコンテキストを保存する
      * 
-     * @param string $user_id ユーザを識別するための記号。典型的には user->screen_name や user->id_str
-     * @param string $context docomoAPIから指定されたコンテキストID
+     * @param string $user_id       ユーザを識別するための記号。典型的には user->screen_name や user->id_str
+     * @param string $context_id    docomoAPIから指定されたコンテキストID
+     * @param string $mode          docomoAPIから指定された会話モード。 "dialog" or "srtr"
      */
-    public function setContextId($user_id, $context) {
-        if($context != '') {
+    public function setContext($user_id, $context_id, $mode) {
+        if($context_id != '') {
             $this->data[$user_id] = [
-                'context' => $context,
-                'expires' => time() + self::CONTEXT_EXPIRES,
+                'context'   => $context_id,
+                'mode'      => $mode,
+                'expires'   => time() + self::CONTEXT_EXPIRES,
             ];
         } else {
             // コンテキストIDが空なら削除する
@@ -101,13 +101,43 @@ class ChatContext {
      * 
      * @param string $user_id ユーザを識別するための記号。典型的には user->screen_name や user->id_str
      * @return string コンテキストID。保存されていないか期限切れなら null
+     * @see getContext()
      */
     public function getContextId($user_id) {
+        $context = $this->getContext($user_id);
+        return $context && isset($context['context']) ? $context['context'] : null;
+    }
+
+    /**
+     * docomoAPIに指定する会話モードを取得する
+     * 
+     * @param string $user_id ユーザを識別するための記号。典型的には user->screen_name や user->id_str
+     * @return string 会話モード。保存されていないか期限切れなら null
+     * @see getContext()
+     */
+    public function getMode($user_id) {
+        $context = $this->getContext($user_id);
+        return $context && isset($context['mode']) ? $context['mode'] : null;
+    }
+
+    /**
+     * docomoAPIに指定するコンテキストを取得する
+     * 
+     * @param string $user_id ユーザを識別するための記号。典型的には user->screen_name や user->id_str
+     * @return array コンテキストデータ。保存されていないか期限切れなら null
+     * @see setContext()
+     * @see getContextId()
+     * @see getMode()
+     */
+    public function getContext($user_id) {
         if(isset($this->data[$user_id]) &&              // 保存されている
            $this->data[$user_id]['expires'] > time())   // 期限が切れていない
         {
             $this->data[$user_id]['expires'] = time() + self::CONTEXT_EXPIRES; // 一度使用されたら期限を伸ばす（処理としては美しくない）
-            return $this->data[$user_id]['context'];
+            return [
+                'context'   => $this->data[$user_id]['context'],
+                'mode'      => $this->data[$user_id]['mode'],
+            ];
         }
         return null;
     }
