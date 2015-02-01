@@ -10,8 +10,8 @@ $param = [];
 
 // 最終投稿IDを取得
 Log::trace("last_idを読み込みます。");
-if(@file_exists(__DIR__ . '/tweet_content_data_list/last_id.txt')) {
-    if($since_id = file_get_contents(__DIR__ . '/tweet_content_data_list/last_id.txt')) {
+if(@file_exists(__DIR__ . '/runtime/last_id.txt')) {
+    if($since_id = file_get_contents(__DIR__ . '/runtime/last_id.txt')) {
         $param['since_id'] = $since_id;
         Log::info("since_id: {$since_id} を読み込みました。");
     } else {
@@ -55,7 +55,7 @@ if(empty($res)) {
 Log::success("Twitter からメンション一覧を取得しました。新着は " . count($res) . " 件です。");
 
 // 最終投稿IDを書き込む
-file_put_contents(__DIR__ . '/tweet_content_data_list/last_id.txt', $res[0]->id_str);
+file_put_contents(__DIR__ . '/runtime/last_id.txt', $res[0]->id_str);
 Log::trace("最終投稿IDを保存しました: " . $res[0]->id_str);
 
 $chat_context = new ChatContext();
