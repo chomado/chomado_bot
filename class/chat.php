@@ -55,19 +55,24 @@ class Chat
                 'content'   => json_encode($user_data),
             ],
         ];
-        
-        echo "docomo API 送信データ:\n";
-        echo "APIKEY: " . $apikey . "\n";
-        echo "JSON:\n";
-        echo json_encode($user_data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) . "\n";
-        echo "\n";
+
+        Log::info("docomo対話APIを呼び出します");
+        Log::info("URL: " . $url);
+        Log::info("パラメータ:");
+        Log::info($user_data);
         
         $response = file_get_contents($url, false, stream_context_create($options));
-        echo "docomo API 返信データ:\n";
-        echo $response . "\n";
-        echo "\n";
-
-        return json_decode($response);
+        $ret = @json_decode($response);
+        if($response === false) {
+            Log::error("docomo対話APIの呼び出しに失敗しました");
+        } else {
+            Log::info("docomoからのデータ:");
+            Log::info($response);
+            if(is_object($ret) && isset($ret->utt) && $ret->utt != '') {
+                Log::success("  docomo 指示文章: " . $ret->utt);
+            }
+        }
+        return $ret;
     }
 
     /**
