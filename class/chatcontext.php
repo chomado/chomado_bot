@@ -11,7 +11,7 @@ class ChatContext {
      * 
      * @see getDataFilePath()
      */
-    const DATA_FILE_PATH = '../tweet_content_data_list/chat_context.json';
+    const DATE_FILE_PATH = '../runtime/chat_context.json';
 
     /**
      * コンテキストの有効時間(秒)

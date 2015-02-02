@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . '/WeatherDictionary.php';// 天気情報クラス
-
 class Weather
 {
 	private $city; // String. 天気情報欲しい都市

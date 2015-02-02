@@ -1,11 +1,14 @@
 <?php
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php'); // OAuth
-require_once(__DIR__ . '/class/weather.php'); // class Weather
-require_once(__DIR__ . '/class/config.php'); // class Config
+require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
+require_once(__DIR__ . '/class/autoload.php');
+Autoload::register();
+Log::setErrorHandler();
 
 // ファイルの行をランダムに抽出
+Log::trace("list.txtを読み込みます。");
 $filelist = file(__DIR__ . '/tweet_content_data_list/list.txt');
 shuffle($filelist);
+Log::trace("list.txtは" . count($filelist) . "行です");
 
 // 呟く文成形 
 $message = sprintf(
@@ -26,5 +29,14 @@ $connection = new TwitterOAuth(
     $config->getTwitterAccessTokenSecret()
 );
 
+$param = [
+    'status' => $message,
+];
+
+Log::info("Twitter に tweet を POST します:");
+Log::info($param);
+
 // 投稿
-$connection->post('statuses/update', array("status"=> $message ));
+// TODO: エラーチェック
+$connection->post('statuses/update', $param);
+Log::success("Tweet を投稿しました");
