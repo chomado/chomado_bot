@@ -1,10 +1,8 @@
 <?php
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php'); // OAuth
-require_once(__DIR__ . '/class/log.php');       // Log
+require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
+require_once(__DIR__ . '/class/autoload.php');
+Autoload::register();
 Log::setErrorHandler();
-require_once(__DIR__ . '/class/config.php');    // class Config
-require_once(__DIR__ . '/class/chat.php');      // docomo対話APIのクラス
-require_once(__DIR__ . '/class/chatcontext.php');
 
 $param = [];
 

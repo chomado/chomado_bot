@@ -1,9 +1,8 @@
 <?php
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php'); // OAuth
-require_once(__DIR__ . '/class/log.php');       // Log
+require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
+require_once(__DIR__ . '/class/autoload.php');
+Autoload::register();
 Log::setErrorHandler();
-require_once(__DIR__ . '/class/weather.php'); // class Weather
-require_once(__DIR__ . '/class/config.php'); // class Config
 
 // ファイルの行をランダムに抽出
 Log::trace("list.txtを読み込みます。");
