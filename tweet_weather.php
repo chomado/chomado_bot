@@ -1,7 +1,9 @@
 <?php
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
-require_once(__DIR__ . '/class/autoload.php');
-Autoload::register();
+namespace bot;
+use Abraham\TwitterOAuth\TwitterOAuth;
+
+// bootstrap
+require_once(__DIR__ . '/vendor/autoload.php');
 Log::setErrorHandler();
 
 // ファイルの行をランダムに抽出
@@ -16,7 +18,7 @@ $message = sprintf(
     $filelist[0],   // (*ﾟ▽ﾟ* っ)З ちょまぎょ!
     //『東京の現在(00:03)の天気はうす曇り(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です』
     (new Weather('tokyo'))->GetWeatherMessage(
-        (new DateTime('now', new DateTimeZone('Asia/Tokyo')))
+        (new \DateTime('now', new \DateTimeZone('Asia/Tokyo')))
     )
 );
 
@@ -55,4 +57,3 @@ for($retry = 0; $retry < 3; ++$retry) {
 Log::error("Tweet を投稿できませんでした");
 Log::error($param);
 exit(1);
-

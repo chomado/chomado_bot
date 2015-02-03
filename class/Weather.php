@@ -1,15 +1,16 @@
 <?php
+namespace bot;
+use bot\weather\Dictionary;
+
 class Weather
 {
 	private $city; // String. 天気情報欲しい都市
 	private $info; // [String]. GetWeather()で得られる(元JSONの)情報が入る配列
-	private $weather; // new天気の英語日本語の辞書オブジェクトが入る
 
 	public function __construct($city)
 	{
 		$this->city 	= $city;
 		$this->info 	= $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
-		$this->weather 	= new WeatherDictionary();
 	}
 	// 華氏→摂氏変換関数
 	private function FtoC($f)
@@ -38,7 +39,7 @@ class Weather
 	private function GetCondition()
 	{
 		return [
-			'weather'	=> $this->weather->GetJapanese($this->info->condition->code, $this->info->forecast[1]->text)
+			'weather'	=> Dictionary::GetJapanese($this->info->condition->code, $this->info->forecast[1]->text)
 			, 'temp'	=> $this->FtoC($this->info->condition->temp)
 		];
 	}
@@ -46,7 +47,7 @@ class Weather
 	private function GetTomorrow()
 	{
 		return [
-			'weather'	=> $this->weather->GetJapanese($this->info->forecast[1]->code, $this->info->forecast[1]->text)
+			'weather'	=> Dictionary::GetJapanese($this->info->forecast[1]->code, $this->info->forecast[1]->text)
 			, 'high'	=> $this->FtoC($this->info->forecast[1]->high)
 			, 'low'		=> $this->FtoC($this->info->forecast[1]->low)
 		];
@@ -70,5 +71,4 @@ class Weather
             , PHP_EOL);
         return $message;
 	}
-
 }

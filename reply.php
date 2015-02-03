@@ -1,7 +1,9 @@
 <?php
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
-require_once(__DIR__ . '/class/autoload.php');
-Autoload::register();
+namespace bot;
+use Abraham\TwitterOAuth\TwitterOAuth;
+
+// bootstrap
+require_once(__DIR__ . '/vendor/autoload.php');
 Log::setErrorHandler();
 
 /**
@@ -88,7 +90,7 @@ Log::trace("最終投稿IDを保存しました: " . $res[0]->id_str);
 
 $success_count = 0;
 $failure_count = 0;
-$chat_context = new ChatContext();
+$chat_context_manager = new chat\ContextManager();
 
 foreach ($res as $re) 
 {
@@ -109,8 +111,8 @@ foreach ($res as $re)
     // ツイート本文
     $chat = new Chat(
         $config->getDocomoDialogueApiKey(),
-        $chat_context->getContextId($re->user->screen_name),
-        $chat_context->getMode($re->user->screen_name),
+        $chat_context_manager->getContextId($re->user->screen_name),
+        $chat_context_manager->getMode($re->user->screen_name),
         $re->user->name,
         $docomo_send_text
     );
@@ -136,7 +138,7 @@ foreach ($res as $re)
         ++$failure_count;
     }
 
-    $chat_context->setContext(
+    $chat_context_manager->setContext(
         $re->user->screen_name,
         $chat->GetChatContextId(),
         $chat->GetChatMode()

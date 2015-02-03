@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . '/targetabstract.php');
+namespace bot\log;
 
 /**
  * ログをコンソール出力するクラス
  */
-class Log_File extends Log_TargetAbstract {
+class File extends TargetAbstract {
     /**
      * ログ保存ディレクトリ
      */
@@ -39,12 +39,12 @@ class Log_File extends Log_TargetAbstract {
      * ログファイル名を確定し、ファイルを開くところまで
      */
     public function __construct() {
-        $log_file_name = __DIR__ . '/' . self::LOG_DIRECTORY . '/' . date('Y-m-d', time()) . '.txt';
-        if(!file_exists(dirname($log_file_name))) {
-            mkdir(dirname($log_file_name), 0755, true);
+        $log_file_path = __DIR__ . '/' . self::LOG_DIRECTORY . '/' . date('Y-m-d', time()) . '.txt';
+        if(!file_exists(dirname($log_file_path))) {
+            mkdir(dirname($log_file_path), 0755, true);
         }
-        if(!$this->fh = fopen($log_file_name, 'c+t')) {
-            throw new Exception('Could not open log file');
+        if(!$this->fh = fopen($log_file_path, 'c+t')) {
+            throw new \Exception('Could not open log file: ' . $log_file_path);
         }
     }
 

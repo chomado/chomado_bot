@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . '/targetinterface.php');
+namespace bot\log;
 
 /**
  * ログ出力クラスの基本的な処理を実装する抽象クラス
  */
-abstract class Log_TargetAbstract implements Log_TargetInterface {
+abstract class TargetAbstract implements TargetInterface {
     const LOG_LEVEL_TRACE   = 0;
     const LOG_LEVEL_DEBUG   = 1;
     const LOG_LEVEL_INFO    = 2;

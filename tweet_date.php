@@ -1,7 +1,9 @@
 <?php
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
-require_once(__DIR__ . '/class/autoload.php');
-Autoload::register();
+namespace bot;
+use Abraham\TwitterOAuth\TwitterOAuth;
+
+// bootstrap
+require_once(__DIR__ . '/vendor/autoload.php');
 Log::setErrorHandler();
 
 // ファイルの行をランダムに抽出
