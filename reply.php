@@ -4,6 +4,36 @@ require_once(__DIR__ . '/class/autoload.php');
 Autoload::register();
 Log::setErrorHandler();
 
+/**
+ * ツイートを投稿する関数
+ *
+ * @param   object  $connection 投稿に使用する TwitterOAuth のインスタンス
+ * @param   array   $param      Twitter に送信するパラメータ
+ * @return  bool    投稿に成功すれば true、失敗すれば false
+ */
+function postTweet(TwitterOAuth $connection, array $param) {
+    Log::info("Twitter に tweet を POST します:");
+    Log::info($param);
+    for($retry = 0; $retry < 3; ++$retry) {
+        if($retry > 0) {
+            sleep(1);
+        }
+        $result = $connection->post('statuses/update', $param);
+        if(is_object($result) &&
+           isset($result->id_str) &&
+           isset($result->text))
+        {
+            Log::success("Tweet を投稿しました");
+            Log::success(array('id' => $result->id_str, 'text' => $result->text));
+            return true;
+        }
+        Log::warning("Tweet の投稿に失敗しました");
+    }
+    Log::error("Tweet を投稿できませんでした");
+    Log::error($param);
+    return false;
+}
+
 $param = [];
 
 // 最終投稿IDを取得
@@ -56,6 +86,8 @@ Log::success("Twitter からメンション一覧を取得しました。新着�
 file_put_contents(__DIR__ . '/runtime/last_id.txt', $res[0]->id_str);
 Log::trace("最終投稿IDを保存しました: " . $res[0]->id_str);
 
+$success_count = 0;
+$failure_count = 0;
 $chat_context = new ChatContext();
 
 foreach ($res as $re) 
@@ -97,13 +129,12 @@ foreach ($res as $re)
 
     $param['in_reply_to_status_id'] = $re->id_str;
 
-    Log::info("Twitter に tweet を POST します:");
-    Log::info($param);
-
     // 投稿
-    // TODO: エラーチェック
-    $connection->post('statuses/update', $param);
-    Log::success("Tweet を投稿しました");
+    if(postTweet($connection, $param)) {
+        ++$success_count;
+    } else {
+        ++$failure_count;
+    }
 
     $chat_context->setContext(
         $re->user->screen_name,
@@ -112,4 +143,9 @@ foreach ($res as $re)
     );
     $index = ($index + 1) % count($face_list);
 }
-Log::success("処理が完了しました");
+
+Log::log(
+    sprintf("処理が完了しました: 成功 %d 件、失敗 %d 件", $success_count, $failure_count),
+    $failure_count > 0 ? 'error' : 'success'
+);
+exit($failure_count > 0 ? 1 : 0);
