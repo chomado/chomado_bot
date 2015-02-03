@@ -11,7 +11,7 @@ class ChatContext {
      * 
      * @see getDataFilePath()
      */
-    const DATE_FILE_PATH = '../runtime/chat_context.json';
+    const DATA_FILE_PATH = '../runtime/chat_context.json';
 
     /**
      * コンテキストの有効時間(秒)
