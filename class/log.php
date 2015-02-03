@@ -253,5 +253,6 @@ class Log {
         if($die) {
             exit(1);
         }
+        return true;
     }
 }
