@@ -4,6 +4,7 @@ consumer_secret     = "CONSUMER_SECRET"
 access_token        = "ACCESS_TOKEN"
 access_token_secret = "ACCESS_TOKEN_SECRET"
 screen_name         = "chomado_bot"
+owner_screen_name   = "chomado"
 
 [docomo]
 dialogue_api_key    = "DOCOMO-API-KEY"
