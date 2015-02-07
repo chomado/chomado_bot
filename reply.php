@@ -151,9 +151,14 @@ Log::log(
     $failure_count > 0 ? 'error' : 'success'
 );
 
+// エラーがあった時に私にリプライで知らせる   
 if ($failure_count > 0)
 {
-    $param['status'] = sprintf("@chomado 処理が完了しました: 成功 %d 件、失敗 %d 件", $success_count, $failure_count);
+    $param['status'] = sprintf(
+        "@%s 処理が完了しました: 成功 %d 件、失敗 %d 件"
+        , $config->getTwitterOwnerScreenName()
+        , $success_count
+        , $failure_count);
 	postTweet($connection, $param);
 }
 exit($failure_count > 0 ? 1 : 0);

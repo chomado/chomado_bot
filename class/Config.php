@@ -89,6 +89,14 @@ class Config {
     }
 
     /**
+     * bot の owner_screen_name を取得 // メンテしてる人の@名前. 何かあった時にこの人にリプライ飛ばす仕様にする. (@誰 エラー何件あったよ)
+     *
+     * @return string
+     */
+    public function getTwitterOwnerScreenName() {
+        return $this->get('twitter', 'owner_screen_name');
+    }
+    /**
      * docomo雑談対話APIのAPIKEYを取得
      *
      * @return string
