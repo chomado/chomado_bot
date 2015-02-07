@@ -1,0 +1,9 @@
+[twitter]
+consumer_key        = "CONSUMER_KEY"
+consumer_secret     = "CONSUMER_SECRET"
+access_token        = "ACCESS_TOKEN"
+access_token_secret = "ACCESS_TOKEN_SECRET"
+screen_name         = "chomado_bot"
+
+[docomo]
+dialogue_api_key    = "DOCOMO-API-KEY"
