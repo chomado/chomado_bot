@@ -8,6 +8,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pcre": "*",
         "abraham/twitteroauth": "0.4.*"
     },
     "autoload": {
