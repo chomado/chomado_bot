@@ -154,6 +154,6 @@ Log::log(
 if ($failure_count > 0)
 {
     $param['status'] = sprintf("処理が完了しました: 成功 %d 件、失敗 %d 件", $success_count, $failure_count);
-	postTweet($connection, $param);
+    postTweet($connection, $param);
 }
 exit($failure_count > 0 ? 1 : 0);
