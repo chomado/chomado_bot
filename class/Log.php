@@ -1,6 +1,5 @@
 <?php
-require_once(__DIR__ . '/log/console.php');
-require_once(__DIR__ . '/log/file.php');
+namespace bot;
 
 /**
  * ログ出力を行うクラス
@@ -96,7 +95,7 @@ class Log {
     /**
      * 実際のログ出力を行うインスタンスの配列
      *
-     * @var array (array<Log_TargetInterface>)
+     * @var array (array<log\TargetInterface>)
      */
     private $targets = [];
 
@@ -120,8 +119,8 @@ class Log {
     private function __construct() {
         //FIXME: 設定から読む
         $this->targets = [
-            new Log_Console(),
-            new Log_File(),
+            new log\Console(),
+            new log\File(),
         ];
     }
 

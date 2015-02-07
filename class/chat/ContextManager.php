@@ -1,8 +1,10 @@
 <?php
+namespace bot\chat;
+
 /**
  * docomo対話APIによるチャット時のコンテキストを保持するためのクラス
  */
-class ChatContext {
+class ContextManager {
     /**
      * コンテキスト保持のためのデータファイルパス
      *
@@ -11,7 +13,7 @@ class ChatContext {
      * 
      * @see getDataFilePath()
      */
-    const DATA_FILE_PATH = '../runtime/chat_context.json';
+    const DATA_FILE_PATH = '../../runtime/chat_context.json';
 
     /**
      * コンテキストの有効時間(秒)
@@ -168,7 +170,7 @@ class ChatContext {
             @touch($path);
         }
         if(!$this->fh = @fopen($path, 'r+')) {
-            throw new Exception('Could not open data file');
+            throw new \Exception('Could not open data file: ' . $path);
         }
         flock($this->fh, LOCK_EX);
         fseek($this->fh, 0, SEEK_SET);
@@ -187,6 +189,7 @@ class ChatContext {
         fseek($this->fh, 0, SEEK_SET);                                  // ファイルポインタを頭に戻す
         fwrite($this->fh, json_encode($this->data, JSON_PRETTY_PRINT)); // JSONデータを作成して保存する
         ftruncate($this->fh, ftell($this->fh));                         // ファイルサイズを正しいサイズにする
+        fflush($this->fh);
         flock($this->fh, LOCK_UN);                                      // flockを解除する(PHP5.3.2以降、fcloseで解除されないので必須)
         fclose($this->fh);
         $this->fh = null;

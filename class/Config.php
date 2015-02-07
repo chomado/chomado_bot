@@ -1,4 +1,6 @@
 <?php
+namespace bot;
+
 /**
  * 設定読み込み・取得用クラス
  */
@@ -101,12 +103,12 @@ class Config {
     private function load() {
         $ini_file_path = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_FILE_PATH;
         if(!@file_exists($ini_file_path)) {
-            throw new Exception('Configuration file does not exist');
+            throw new \Exception('Configuration file does not exist');
         }
 
         $ini = @parse_ini_file($ini_file_path, true);
         if($ini === false) {
-            throw new Exception('Configuration file format is broken.');
+            throw new \Exception('Configuration file format is broken.');
         }
         $this->data = $ini;
     }

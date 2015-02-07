@@ -1,4 +1,6 @@
 <?php
+namespace bot;
+
 /**
  * docomo の雑談対話APIを使うためのクラス
  */

@@ -1,4 +1,6 @@
 <?php
+namespace bot;
+
 // 日付クラス
 class Date
 {
@@ -7,7 +9,7 @@ class Date
     
     public function __construct()
     {
-        $this->time = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
+        $this->time = new \DateTime('now', new \DateTimeZone('Asia/Tokyo'));
     }
 
     // 現在時刻のゲッター

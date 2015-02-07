@@ -1,8 +1,10 @@
 <?php
+namespace bot\log;
+
 /**
  * ログ出力クラスが実装しなければならないインタフェース
  */
-interface Log_TargetInterface {
+interface TargetInterface {
     /**
      * ログを出力する
      *

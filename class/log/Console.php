@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . '/targetabstract.php');
+namespace bot\log;
 
 /**
  * ログをコンソール出力するクラス
  */
-class Log_Console extends Log_TargetAbstract {
+class Console extends TargetAbstract {
     /**
      * 最小のログレベル
      *
