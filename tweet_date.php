@@ -36,21 +36,5 @@ Log::info("Twitter に tweet を POST します:");
 Log::info($param);
 
 // 投稿
-for($retry = 0; $retry < 3; ++$retry) {
-    if($retry > 0) {
-        sleep(1);
-    }
-    $result = $connection->post('statuses/update', $param);
-    if(is_object($result) &&
-       isset($result->id_str) &&
-       isset($result->text))
-    {
-        Log::success("Tweet を投稿しました");
-        Log::success(array('id' => $result->id_str, 'text' => $result->text));
-        exit(0);
-    }
-    Log::warning("Tweet の投稿に失敗しました");
-}
-Log::error("Tweet を投稿できませんでした");
-Log::error($param);
-exit(1);
+$ret = TwitterUtil::postTweet($connection, $param);
+exit($ret ? 0 : 1);
