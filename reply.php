@@ -6,36 +6,6 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 require_once(__DIR__ . '/vendor/autoload.php');
 Log::setErrorHandler();
 
-/**
- * ツイートを投稿する関数
- *
- * @param   object  $connection 投稿に使用する TwitterOAuth のインスタンス
- * @param   array   $param      Twitter に送信するパラメータ
- * @return  bool    投稿に成功すれば true、失敗すれば false
- */
-function postTweet(TwitterOAuth $connection, array $param) {
-    Log::info("Twitter に tweet を POST します:");
-    Log::info($param);
-    for($retry = 0; $retry < 3; ++$retry) {
-        if($retry > 0) {
-            sleep(1);
-        }
-        $result = $connection->post('statuses/update', $param);
-        if(is_object($result) &&
-           isset($result->id_str) &&
-           isset($result->text))
-        {
-            Log::success("Tweet を投稿しました");
-            Log::success(array('id' => $result->id_str, 'text' => $result->text));
-            return true;
-        }
-        Log::warning("Tweet の投稿に失敗しました");
-    }
-    Log::error("Tweet を投稿できませんでした");
-    Log::error($param);
-    return false;
-}
-
 $param = [];
 
 // 最終投稿IDを取得
@@ -132,7 +102,7 @@ foreach ($res as $re)
     $param['in_reply_to_status_id'] = $re->id_str;
 
     // 投稿
-    if(postTweet($connection, $param)) {
+    if(TwitterUtil::postTweet($connection, $param)) {
         ++$success_count;
     } else {
         ++$failure_count;
@@ -156,11 +126,12 @@ Log::log(
  */
 if ($failure_count > 0)
 {
+    $param = [];
     $param['status'] = sprintf(
         "@%s 処理が完了しました: 成功 %d 件、失敗 %d 件"
         , $config->getTwitterOwnerScreenName()
         , $success_count
         , $failure_count);
-	postTweet($connection, $param);
+	TwitterUtil::postTweet($connection, $param);
 }
 exit($failure_count > 0 ? 1 : 0);
