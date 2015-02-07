@@ -151,7 +151,9 @@ Log::log(
     $failure_count > 0 ? 'error' : 'success'
 );
 
-// エラーがあった時に私にリプライで知らせる   
+/**
+ * エラーがあった時に私に知らせる
+ */
 if ($failure_count > 0)
 {
     $param['status'] = sprintf(
