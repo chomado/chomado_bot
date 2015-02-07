@@ -1,3 +1,7 @@
 .DS_Store
 composer.phar
 /vendor
+
+*.json
+
+tweet_content_data_list/last_id.txt
