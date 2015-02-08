@@ -16,7 +16,7 @@ class Console extends TargetAbstract {
     private $min_log_level = self::LOG_LEVEL_DEBUG;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      */
     public function getMinLogLevel() {
@@ -24,7 +24,7 @@ class Console extends TargetAbstract {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function writeImpl($time, $text, $level, $int_level) {
         printf(

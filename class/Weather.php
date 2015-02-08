@@ -2,23 +2,48 @@
 namespace bot;
 use bot\weather\Dictionary;
 
+/**
+ * 天気情報取得クラス
+ */
 class Weather
 {
-	private $city; // String. 天気情報欲しい都市
-	private $info; // [String]. GetWeather()で得られる(元JSONの)情報が入る配列
+    /** @var string 天気情報を取得する対象の都市 */
+	private $city;
 
+    /**
+     * @var stdClass 取得した天気情報
+     * @see GetWeather()
+     */
+	private $info;
+
+    /**
+     * コンストラクタ
+     *
+     * @param   string  $city   対象の都市の名前(例: tokyo)
+     */
 	public function __construct($city)
 	{
 		$this->city 	= $city;
 		$this->info 	= $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
 	}
-	// 華氏→摂氏変換関数
+
+    /**
+     * 華氏から摂氏に変換する
+     * 
+     * @param   float   $f  華氏温度
+     * @return  float       摂氏温度
+     */
 	private function FtoC($f)
 	{
-		return round(($f - 32) * 0.555, 1);
+        return ((double)$f - 32) * 5 / 9;
 	}
 
-	// yahoo の天気予報 API から引っ張ってくる
+    /**
+     * 現在の天気の情報を問い合わせる
+     *
+     * @todo: クエリは当然失敗するかもしれないのでエラー処理が必要
+     * @todo: YQLに埋め込まれるパラメータのエスケープ方法が不明
+     */
 	private function GetWeather()
 	{
 		$parameters = [
@@ -30,12 +55,14 @@ class Weather
 		];
 		$query_uri = 'https://query.yahooapis.com/v1/public/yql?'
 					. http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
-		//FIXME: file_get_contentsはサーバ側の理由等で当然失敗するかもしれない
-		//FIXME: allow_url_fopenが死んでるかもしれない
 		return json_decode(file_get_contents($query_uri))->query->results->channel->item;
 	}
 
-	// 現在の天気
+    /**
+     * 現在の天気を取得
+     *
+     * @return array
+     */
 	private function GetCondition()
 	{
 		return [
@@ -43,7 +70,12 @@ class Weather
 			, 'temp'	=> $this->FtoC($this->info->condition->temp)
 		];
 	}
-	// 明日の天気情報
+
+    /**
+     * 明日の天気を取得
+     *
+     * @return array
+     */
 	private function GetTomorrow()
 	{
 		return [
@@ -53,7 +85,16 @@ class Weather
 		];
 	}
 
-	// 文章成形. 『東京の現在(21:15)の天気は晴れ(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です』
+    /**
+     * 天気情報を成形して取得する
+     *
+     * @param   \DateTime   $time   現在の日時
+     * @return  string              例: 東京の現在(21:15)の天気は晴れ(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です
+     *
+     * @todo    "東京" がハードコーディングされている
+     * @todo    APIで取得してきた情報は現在時間のものではない
+     * @todo    現在時間なら $time はそもそも不要
+     */
 	public function GetWeatherMessage($time)
 	{
 		$now 	  = $this->GetCondition();
