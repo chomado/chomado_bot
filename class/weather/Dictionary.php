@@ -2,8 +2,8 @@
 namespace bot\weather;
 
 /**
-*  天気辞書クラス
-*/
+ * 天気辞書クラス
+ */
 class Dictionary {
     /**
      * 天気コード→天気表記マップ
@@ -63,12 +63,20 @@ class Dictionary {
         3200 => "(サービス停止中)"  // 3200    not available
     ];
     
-    // 引数:26 → 返り値: "曇り"
-    // という, String を返す. もし存在しないコードが来たら, 『?(id)? + 英語』を返す.
+    /**
+     * 天気コード・英語表記から日本語表記された天気を返す
+     *
+     * コードに存在すれば対応する日本語を、存在しなければ英語ベースの表記を返す
+     *
+     * @param   int     $code       天気コード
+     * @param   string  $english    英語表記された天気
+     * @return  string
+     * @link    https://developer.yahoo.com/weather/documentation.html
+     */
     public static function GetJapanese($code, $english)
     {
         return isset(self::$dictionary[$code])
             ? self::$dictionary[$code]
-            : sprintf('?%d? (%s)', $code, $english);
+            : sprintf('%2$s (?%1$d?)', $code, $english);
     }
 }

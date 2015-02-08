@@ -13,21 +13,21 @@ class Config {
     /**
      * Singleton instance
      *
-     * @var object (self)
+     * @var self
      */
     private static $instance;
 
     /**
      * コンフィグデータを保持する変数
      *
-     * @var array
+     * @var string[][]
      */
     private $data;
 
     /**
      * このクラスのインスタンスを取得する
      *
-     * @return object (self)
+     * @return self
      */
     public static function getInstance() {
         if(!self::$instance) {
@@ -89,9 +89,9 @@ class Config {
     }
 
     /**
-     * bot の owner_screen_name を取得
+     * bot のメンテナの screen_name を取得
      *
-     * メンテしてる人の@名前. 何かあった時にこの人にリプライ飛ばす仕様にする. (@誰 エラー何件あったよ)
+     * メンテしてる人の@id. 
      *
      * @return string
      */
@@ -128,7 +128,7 @@ class Config {
      *
      * @param string $section   iniファイル中のセクション("[hoge]" の部分)
      * @param string $key       iniファイル中の設定キー
-     * @return string 設定の値。該当するものがないときは false
+     * @return string|false 設定の値。該当するものがないときは false
      */
     private function get($section, $key) {
         if(is_array($this->data) &&
