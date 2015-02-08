@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class bot\Weather</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Overview</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-bot.html" title="Summary of bot"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-bot.html">
+							bot<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-bot.chat.html">
+							chat						</a>
+							</li>
+					<li>
+						<a href="namespace-bot.log.html">
+							log						</a>
+							</li>
+					<li>
+						<a href="namespace-bot.weather.html">
+							weather						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-bot.Chat.html">Chat</a></li>
+				<li><a href="class-bot.Config.html">Config</a></li>
+				<li><a href="class-bot.Date.html">Date</a></li>
+				<li><a href="class-bot.Log.html">Log</a></li>
+				<li><a href="class-bot.TwitterUtil.html">TwitterUtil</a></li>
+				<li class="active"><a href="class-bot.Weather.html">Weather</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Weather</h1>
+
+
+	<div class="description">
+	<p>天気情報取得クラス</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-bot.html">bot</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-bot.Weather.html#5-115" title="Go to source code">Weather.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-bot.Weather.html#19-28" title="Go to source code">__construct</a>( <span>string <var>$city</var></span> )</code>
+
+			<div class="description short">
+				<p>コンストラクタ</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>コンストラクタ</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$city</var></dt>
+						<dd>対象の都市の名前(例: tokyo)</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="FtoC" id="_FtoC">
+
+			<td class="attributes"><code>
+				 private 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_FtoC">#</a>
+			<code><a href="source-class-bot.Weather.html#30-39" title="Go to source code">FtoC</a>( <span>float <var>$f</var></span> )</code>
+
+			<div class="description short">
+				<p>華氏から摂氏に変換する</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>華氏から摂氏に変換する</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$f</var></dt>
+						<dd>華氏温度</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						float<br>摂氏温度
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="GetWeather" id="_GetWeather">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_GetWeather">#</a>
+			<code><a href="source-class-bot.Weather.html#41-59" title="Go to source code">GetWeather</a>( )</code>
+
+			<div class="description short">
+				<p>現在の天気の情報を問い合わせる</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>現在の天気の情報を問い合わせる</p>
+
+
+
+
+
+					<h4>Todo:</h4>
+					<div class="list">
+							クエリは当然失敗するかもしれないのでエラー処理が必要<br>
+							YQLに埋め込まれるパラメータのエスケープ方法が不明<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="GetCondition" id="_GetCondition">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_GetCondition">#</a>
+			<code><a href="source-class-bot.Weather.html#61-72" title="Go to source code">GetCondition</a>( )</code>
+
+			<div class="description short">
+				<p>現在の天気を取得</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>現在の天気を取得</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="GetTomorrow" id="_GetTomorrow">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_GetTomorrow">#</a>
+			<code><a href="source-class-bot.Weather.html#74-86" title="Go to source code">GetTomorrow</a>( )</code>
+
+			<div class="description short">
+				<p>明日の天気を取得</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>明日の天気を取得</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="GetWeatherMessage" id="_GetWeatherMessage">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_GetWeatherMessage">#</a>
+			<code><a href="source-class-bot.Weather.html#88-114" title="Go to source code">GetWeatherMessage</a>( <span>DateTime <var>$time</var></span> )</code>
+
+			<div class="description short">
+				<p>天気情報を成形して取得する</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>天気情報を成形して取得する</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$time</var></dt>
+						<dd>現在の日時</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>例: 東京の現在(21:15)の天気は晴れ(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です
+					</div>
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							"東京" がハードコーディングされている<br>
+							APIで取得してきた情報は現在時間のものではない<br>
+							現在時間なら $time はそもそも不要<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="city" id="$city">
+			<td class="attributes"><code>
+				private  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-bot.Weather.html#10-11" title="Go to source code"><var>$city</var></a>
+
+				<div class="description short">
+					<p>天気情報を取得する対象の都市</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>天気情報を取得する対象の都市</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$city" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="info" id="$info">
+			<td class="attributes"><code>
+				private  
+				stdClass
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-bot.Weather.html#13-17" title="Go to source code"><var>$info</var></a>
+
+				<div class="description short">
+					<p>取得した天気情報</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>取得した天気情報</p>
+
+						<h4>See</h4>
+						<div class="list">
+								<code><a href="class-bot.Weather.html#_GetWeather">bot\Weather::GetWeather()</a></code><br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$info" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

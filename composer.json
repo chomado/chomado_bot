@@ -17,5 +17,9 @@
         "psr-4": {
             "bot\\": "class/"
         }
+    },
+    "require-dev": {
+        "apigen/apigen": "~4.0",
+        "apigen/theme-bootstrap": "~1.0"
     }
 }
