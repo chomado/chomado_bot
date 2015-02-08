@@ -95,7 +95,7 @@ class Log {
     /**
      * 実際のログ出力を行うインスタンスの配列
      *
-     * @param log\TargetInterface[]
+     * @var log\TargetInterface[]
      */
     private $targets = [];
 
