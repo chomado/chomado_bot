@@ -109,6 +109,8 @@ class Config {
 
     /**
      * 設定ファイルを読み込む
+     *
+     * @throw \Exception    設定ファイルが存在しないときや壊れているときに例外を投げる
      */
     private function load() {
         $ini_file_path = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_FILE_PATH;
@@ -128,7 +130,8 @@ class Config {
      *
      * @param string $section   iniファイル中のセクション("[hoge]" の部分)
      * @param string $key       iniファイル中の設定キー
-     * @return string|false 設定の値。該当するものがないときは false
+     * @return string           設定の値
+     * @throws \Exception       指定された設定が存在しないときは例外を投げる
      */
     private function get($section, $key) {
         if(is_array($this->data) &&
@@ -138,6 +141,6 @@ class Config {
         {
             return $this->data[$section][$key];
         }
-        return false;
+        throw new \Exception("Configuration [{$section}] {$key} does not exist");
     }
 }
