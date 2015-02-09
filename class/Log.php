@@ -8,7 +8,7 @@ class Log {
     /**
      * 実行トレース用のログを出力する
      *
-     * @var mixed   $data   ログ出力内容
+     * @param   mixed   $data   ログ出力内容
      */
     public static function trace($data) {
         self::log($data, 'trace');
@@ -17,7 +17,7 @@ class Log {
     /**
      * デバッグ用のログを出力する
      *
-     * @var mixed   $data   ログ出力内容
+     * @param   mixed   $data   ログ出力内容
      */
     public static function debug($data) {
         self::log($data, 'debug');
@@ -26,7 +26,7 @@ class Log {
     /**
      * 情報レベルのログを出力する
      *
-     * @var mixed   $data   ログ出力内容
+     * @param   mixed   $data   ログ出力内容
      */
     public static function info($data) {
         self::log($data, 'info');
@@ -35,7 +35,7 @@ class Log {
     /**
      * 成功した時のログを出力する
      *
-     * @var mixed   $data   ログ出力内容
+     * @param   mixed   $data   ログ出力内容
      */
     public static function success($data) {
         self::log($data, 'success');
@@ -44,7 +44,7 @@ class Log {
     /**
      * 警告レベルのログを出力する
      *
-     * @var mixed   $data   ログ出力内容
+     * @param   mixed   $data   ログ出力内容
      */
     public static function warning($data) {
         self::log($data, 'warning');
@@ -53,7 +53,7 @@ class Log {
     /**
      * エラーレベルのログを出力する
      *
-     * @var mixed   $data   ログ出力内容
+     * @param   mixed   $data   ログ出力内容
      */
     public static function error($data) {
         self::log($data, 'error');
@@ -62,8 +62,8 @@ class Log {
     /**
      * ログを出力する
      *
-     * @var mixed   $data   ログ出力内容
-     * @var string  $level  ログレベル
+     * @param   mixed   $data   ログ出力内容
+     * @param   string  $level  ログレベル
      * @see trace()
      * @see debug()
      * @see info()
@@ -87,7 +87,7 @@ class Log {
     /**
      * このクラスの singleton インスタンスを保持する変数
      *
-     * @var object (self)
+     * @var self
      * @see getInstance()
      */
     private static $instance;
@@ -95,14 +95,14 @@ class Log {
     /**
      * 実際のログ出力を行うインスタンスの配列
      *
-     * @var array (array<log\TargetInterface>)
+     * @var log\TargetInterface[]
      */
     private $targets = [];
 
     /**
      * このクラスの singleton インスタンスを生成して返す
      *
-     * @return object (self)
+     * @return self
      */
     private static function getInstance() {
         if(!self::$instance) {
@@ -115,9 +115,10 @@ class Log {
      * コンストラクタ
      *
      * @see getInstance()
+     *
+     * @todo ログターゲットを設定から読むようにする
      */
     private function __construct() {
-        //FIXME: 設定から読む
         $this->targets = [
             new log\Console(),
             new log\File(),
@@ -127,8 +128,8 @@ class Log {
     /**
      * ログ出力内容を実際に出力するクラスに引き渡す
      * 
-     * @var $data   mixed   ログ出力内容
-     * @var $level  string  ログレベル
+     * @param $data   mixed   ログ出力内容
+     * @param $level  string  ログレベル
      */
     private function write($data, $level) {
         foreach($this->targets as $target) {
@@ -145,14 +146,14 @@ class Log {
      * 詳しくは PHP のマニュアルを参照のこと。
      * http://php.net/manual/ja/function.set-error-handler.php
      *
-     * @var int     $errno      発生させるエラーのレベル
-     * @var string  $errstr     エラーメッセージ
-     * @var string  $errfile    エラーが発生したファイルの名前
-     * @var int     $errline    エラーが発生した行番号
-     * @var array   $errcontext エラーが発生した場所のアクティブシンボルテーブルを指す配列
-     * @return bool この関数が FALSE を返した場合は、通常のエラーハンドラが処理を引き継ぎます
+     * @internal
+     * @param   int     $errno      発生させるエラーのレベル
+     * @param   string  $errstr     エラーメッセージ
+     * @param   string  $errfile    エラーが発生したファイルの名前
+     * @param   int     $errline    エラーが発生した行番号
+     * @return  bool この関数が FALSE を返した場合は、通常のエラーハンドラが処理を引き継ぎます
      */
-    public static function errorHandlerCallback($errno, $errstr, $errfile, $errline, $errcontext) {
+    public static function errorHandlerCallback($errno, $errstr, $errfile, $errline) {
         // @で抑制されている場合等にも呼び出されるので、現在の設定と発生した内容を照らし合わせて
         // 該当しなければ何もしせずに戻す
         if(!(error_reporting() & $errno)) {

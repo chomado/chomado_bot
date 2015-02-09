@@ -8,11 +8,15 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "abraham/twitteroauth": "0.4.*"
+        "abraham/twitteroauth": "0.4.*",
+        "apigen/theme-bootstrap": "~1.0"
     },
     "autoload": {
         "psr-4": {
             "bot\\": "class/"
         }
+    },
+    "require-dev": {
+        "apigen/apigen": "~4.0"
     }
 }

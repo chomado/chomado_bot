@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class bot\log\File</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Overview</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-bot.log.html" title="Summary of bot\log"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-bot.html">
+							bot<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-bot.chat.html">
+							chat						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-bot.log.html">
+							log						</a>
+							</li>
+					<li>
+						<a href="namespace-bot.weather.html">
+							weather						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-bot.log.Console.html">Console</a></li>
+				<li class="active"><a href="class-bot.log.File.html">File</a></li>
+				<li><a href="class-bot.log.TargetAbstract.html">TargetAbstract</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-bot.log.TargetInterface.html">TargetInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class File</h1>
+
+
+	<div class="description">
+	<p>ログをファイル出力するクラス</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-bot.log.TargetAbstract.html"><span>bot\log\TargetAbstract</span></a>
+			
+			 implements 
+				<a href="class-bot.log.TargetInterface.html"><span>bot\log\TargetInterface</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>bot\log\File</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-bot.html">bot</a>\<a href="namespace-bot.log.html">log</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-bot.log.File.html#4-99" title="Go to source code">log/File.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-bot.log.File.html#36-49" title="Go to source code">__construct</a>( )</code>
+
+			<div class="description short">
+				<p>コンストラクタ</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>コンストラクタ</p>
+
+<p>ログファイル名を確定し、ファイルを開くところまで</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__destruct" id="___destruct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___destruct">#</a>
+			<code><a href="source-class-bot.log.File.html#51-60" title="Go to source code">__destruct</a>( )</code>
+
+			<div class="description short">
+				<p>デストラクタ</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>デストラクタ</p>
+
+<p>まだ書き出されていないログがあれば書き出し、ファイルを閉じる</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getMinLogLevel" id="_getMinLogLevel">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getMinLogLevel">#</a>
+			<code><a href="source-class-bot.log.File.html#62-68" title="Go to source code">getMinLogLevel</a>( )</code>
+
+			<div class="description short">
+				<p>ログ出力を行う最少のログレベルを取得</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>ログ出力を行う最少のログレベルを取得</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer<br>ログレベル
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="writeImpl" id="_writeImpl">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_writeImpl">#</a>
+			<code><a href="source-class-bot.log.File.html#70-83" title="Go to source code">writeImpl</a>( <span>integer <var>$time</var></span>, <span>string <var>$text</var></span>, <span>string <var>$level</var></span>, <span>integer <var>$int_level</var></span> )</code>
+
+			<div class="description short">
+				<p>ログ出力を行う関数</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>ログ出力を行う関数</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$time</var></dt>
+						<dd>イベント発生時間のタイムスタンプ</dd>
+						<dt><var>$text</var></dt>
+						<dd>ログ内容</dd>
+						<dt><var>$level</var></dt>
+						<dd>ログレベル</dd>
+						<dt><var>$int_level</var></dt>
+						<dd>ログレベル（整数値に変換したもの）</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="flush" id="_flush">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_flush">#</a>
+			<code><a href="source-class-bot.log.File.html#85-98" title="Go to source code">flush</a>( )</code>
+
+			<div class="description short">
+				<p>バッファにたまったログをファイルに書き出す</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>バッファにたまったログをファイルに書き出す</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-bot.log.TargetAbstract.html#methods">bot\log\TargetAbstract</a></h3>
+		<p class="elementList">
+			<code><a href="class-bot.log.TargetAbstract.html#_convertStringErrorLevelToInt">convertStringErrorLevelToInt()</a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#_getMaxLogLevel">getMaxLogLevel()</a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#_write">write()</a></code>
+		</p>
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+		<h2>Constants summary</h2>
+		<table class="summary table table-bordered table-striped constants" id="constants">
+		<tr data-order="LOG_DIRECTORY" id="LOG_DIRECTORY">
+
+			<td class="attributes"><code>string</code></td>
+			<td class="name">
+				<code>
+					<a href="source-class-bot.log.File.html#8-11" title="Go to source code"><b>LOG_DIRECTORY</b></a>
+				</code>
+
+				<div class="description short">
+					<p>ログ保存ディレクトリ</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>ログ保存ディレクトリ</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#LOG_DIRECTORY" class="anchor">#</a>
+					<code><span class="php-quote">'../../runtime/logs'</span></code>
+				</div>
+			</td>
+		</tr>
+		</table>
+
+		<h3>Constants inherited from <a href="class-bot.log.TargetAbstract.html#constants">bot\log\TargetAbstract</a></h3>
+		<p class="elementList">
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_DEBUG"><b>LOG_LEVEL_DEBUG</b></a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_ERROR"><b>LOG_LEVEL_ERROR</b></a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_INFO"><b>LOG_LEVEL_INFO</b></a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_MAX"><b>LOG_LEVEL_MAX</b></a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_SUCCESS"><b>LOG_LEVEL_SUCCESS</b></a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_TRACE"><b>LOG_LEVEL_TRACE</b></a></code>, 
+			<code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_WARNING"><b>LOG_LEVEL_WARNING</b></a></code>
+		</p>
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="min_log_level" id="$min_log_level">
+			<td class="attributes"><code>
+				private  
+				integer
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-bot.log.File.html#13-19" title="Go to source code"><var>$min_log_level</var></a>
+
+				<div class="description short">
+					<p>最小のログレベル</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>最小のログレベル</p>
+
+						<h4>See</h4>
+						<div class="list">
+								<code><a href="class-bot.log.File.html#_getMinLogLevel">bot\log\File::getMinLogLevel()</a></code><br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$min_log_level" class="anchor">#</a>
+					<code><code><a href="class-bot.log.TargetAbstract.html#LOG_LEVEL_INFO">bot\log\TargetAbstract::<b>LOG_LEVEL_INFO</b></a></code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="buffer" id="$buffer">
+			<td class="attributes"><code>
+				private  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-bot.log.File.html#21-26" title="Go to source code"><var>$buffer</var></a>
+
+				<div class="description short">
+					<p>ログをまとめて出力するためのバッファ</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>ログをまとめて出力するためのバッファ</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$buffer" class="anchor">#</a>
+					<code>[]</code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="fh" id="$fh">
+			<td class="attributes"><code>
+				private  
+				
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-bot.log.File.html#28-34" title="Go to source code"><var>$fh</var></a>
+
+				<div class="description short">
+					<p>ログ出力ファイルのファイルハンドル</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>ログ出力ファイルのファイルハンドル</p>
+
+<p>このクラスが生成された時に対象ファイルは固定される。
+（途中で日付が変わっても何事もなかったかのように処理される）</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$fh" class="anchor">#</a>
+					<code><span class="php-keyword1">null</span></code>
+				</div>
+			</td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
