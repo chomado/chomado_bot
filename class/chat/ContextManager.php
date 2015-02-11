@@ -166,10 +166,8 @@ class ContextManager {
             return;
         }
         $path = $this->getDataFilePath();
-        if(!@file_exists($path)) {
-            @touch($path);
-        }
-        if(!$this->fh = @fopen($path, 'r+')) {
+        $this->fh = @fopen($path, 'c+');
+        if(!$this->fh) {
             throw new \Exception('Could not open data file: ' . $path);
         }
         flock($this->fh, LOCK_EX);

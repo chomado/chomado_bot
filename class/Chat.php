@@ -1,5 +1,6 @@
 <?php
 namespace bot;
+use Curl\Curl;
 
 /**
  * docomo の雑談対話APIを使うためのクラス
@@ -36,7 +37,8 @@ class Chat
      * @param string $mode      会話のモード(API仕様参照
      * @param string $nickname  会話している人間側の名前
      * @param string $text      人間側の入力テキスト
-     * @return object レスポンスのJSONをデコードしたオブジェクト
+     * @return stdClass         レスポンスのJSONをデコードしたオブジェクト
+     * @throws \Exception       サーバとの通信に失敗した場合
      */
     private function GetData($apikey, $context, $mode, $nickname, $text)
     {
@@ -50,31 +52,27 @@ class Chat
             'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s',
             rawurlencode($apikey)
         );
-        $options = [
-            'http' => [
-                'method'    => 'POST',
-                'header'    => "Content-type: application/json",
-                'content'   => json_encode($user_data),
-            ],
-        ];
-
         Log::info("docomo対話APIを呼び出します");
         Log::info("URL: " . $url);
         Log::info("パラメータ:");
         Log::info($user_data);
-        
-        $response = file_get_contents($url, false, stream_context_create($options));
-        $ret = @json_decode($response);
-        if($response === false) {
-            Log::error("docomo対話APIの呼び出しに失敗しました");
-        } else {
-            Log::info("docomoからのデータ:");
-            Log::info($response);
-            if(is_object($ret) && isset($ret->utt) && $ret->utt != '') {
-                Log::success("  docomo 指示文章: " . $ret->utt);
-            }
+
+        $curl = new Curl();
+        $curl->setHeader('Content-Type', 'application/json; charset=UTF-8');
+        $ret = $curl->post($url, json_encode($user_data));
+        if($curl->error) {
+            Log::error("docomo対話APIの呼び出しに失敗しました: " . $curl->error_code . ': ' . $curl->error_message);
+            throw new \Exception('docomo dialogue error: ' . $curl->error_code . ': ' . $curl->error_message);
         }
-        return $ret;
+        Log::info("docomoからのデータ:");
+        Log::info($ret);
+        if(is_object($ret) && isset($ret->utt) && $ret->utt != '') {
+            Log::success("  docomo 指示文章: " . $ret->utt);
+            return $ret;
+        }
+        Log::error("docomoから受け取ったデータが期待した形式ではありません:");
+        Log::error($ret);
+        throw new \Exception('Received an unexpected data from docomo server');
     }
 
     /**
