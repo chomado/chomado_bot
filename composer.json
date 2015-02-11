@@ -8,11 +8,18 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pcre": "*",
         "abraham/twitteroauth": "0.4.*"
     },
     "autoload": {
         "psr-4": {
             "bot\\": "class/"
         }
+    },
+    "require-dev": {
+        "apigen/apigen": "~4.0",
+        "apigen/theme-bootstrap": "~1.0"
     }
 }

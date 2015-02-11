@@ -5,12 +5,25 @@ namespace bot\log;
  * ログ出力クラスの基本的な処理を実装する抽象クラス
  */
 abstract class TargetAbstract implements TargetInterface {
+    /** 分岐などを追うためのログレベル */
     const LOG_LEVEL_TRACE   = 0;
+
+    /** デバッグ用の情報を表すログレベル */
     const LOG_LEVEL_DEBUG   = 1;
+
+    /** エラーなどではないがそれなりに重要な情報を表すログレベル */
     const LOG_LEVEL_INFO    = 2;
+
+    /** 操作に成功したことを表すログレベル */
     const LOG_LEVEL_SUCCESS = 3;
+
+    /** 直ちに動作に問題が出るわけではないが警告されるべきことを表すログレベル */
     const LOG_LEVEL_WARNING = 4;
+
+    /** 問題が発生したことを表すログレベル */
     const LOG_LEVEL_ERROR   = 5;
+
+    /** LOG_LEVEL_* の最大値 */
     const LOG_LEVEL_MAX     = self::LOG_LEVEL_ERROR;
 
     /**
@@ -43,7 +56,7 @@ abstract class TargetAbstract implements TargetInterface {
     abstract public function writeImpl($time, $text, $level, $int_level);
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function write($data, $level) {
         $now = time();

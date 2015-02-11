@@ -2,7 +2,7 @@
 namespace bot\log;
 
 /**
- * ログをコンソール出力するクラス
+ * ログをファイル出力するクラス
  */
 class File extends TargetAbstract {
     /**
@@ -60,7 +60,7 @@ class File extends TargetAbstract {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      */
     public function getMinLogLevel() {
@@ -68,7 +68,7 @@ class File extends TargetAbstract {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function writeImpl($time, $text, $level, $int_level) {
         $this->buffer[] = sprintf(
