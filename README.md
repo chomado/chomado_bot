@@ -5,7 +5,7 @@ chomado_bot
 
 Twitter の [@chomado_bot](https://twitter.com/chomado_bot) を作っていきます
 
-[chomadoc\.fetus\.jp](http://tmp.fetus.jp/chomadoc/): すごく分かりやすいちょまどbot説明書( @fetus_hina  さんが作ってくださった)
+[chomadoc\.fetus\.jp](https://chomadoc.fetus.jp/chomado/master/): すごく分かりやすいちょまどbot説明書( @fetus_hina  さんが作ってくださった)
 
 ## 機能 (追加されたのが新しい順. 更新履歴みたいな感じ)
 
