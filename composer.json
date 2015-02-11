@@ -1,9 +1,10 @@
 {
     "name": "chomado/chomado_bot",
+    "license": "MIT",
     "authors": [
         {
             "name": "chomado",
-            "email": "chomado@example.com"
+            "email": "chomado@gmail.com"
         }
     ],
     "require": {
