@@ -75,22 +75,35 @@ foreach ($res as $re)
         continue;
     }
 
-    // docomoAPIに送信する本文から余計なものを取り除く
-    $docomo_send_text = trim(preg_replace('/@[a-z0-9_]+/i', '', $re->text));
+    // リプライ本文から余計なものを取り除く. 
+    // 例: "@chomado_bot こんにちは" → "こんにちは"
+    $text = trim(preg_replace('/@[a-z0-9_]+/i', '', $re->text));
 
-    // ツイート本文
-    $chat = new Chat(
-        $config->getDocomoDialogueApiKey(),
-        $chat_context_manager->getContextId($re->user->screen_name),
-        $chat_context_manager->getMode($re->user->screen_name),
-        $re->user->name,
-        $docomo_send_text
-    );
-    $message = sprintf('%s %s%s'
-        , $chat->ResText()
-        , $face_list[$index]
-        , PHP_EOL
+    // もし数字だけだったら素数判定処理をする
+    if (preg_match("/^[0-9]+$/", $text)) 
+    {
+        $num = intval($text);
+        $message = sprintf('%d の次の素数は %s です。'
+            , $num
+            , '[そのうち実装するよ!]');
+    }
+    // botに来たリプライに数字以外のものが含まれていたら, 通常の雑談対話リプライをする
+    else 
+    {
+        // ツイート本文
+        $chat = new Chat(
+            $config->getDocomoDialogueApiKey(),
+            $chat_context_manager->getContextId($re->user->screen_name),
+            $chat_context_manager->getMode($re->user->screen_name),
+            $re->user->name,
+            $text
         );
+        $message = sprintf('%s %s%s'
+            , $chat->ResText()
+            , $face_list[$index]
+            , PHP_EOL
+            );
+    }
 
     $param['status'] = sprintf('@%s %sさん%s%s'
         , $re->user->screen_name
