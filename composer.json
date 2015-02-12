@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "apigen/apigen": "~4.0",
-        "apigen/theme-bootstrap": "~1.0"
+        "apigen/theme-bootstrap": "~1.0",
+        "phpmd/phpmd": "~2.2"
     }
 }
