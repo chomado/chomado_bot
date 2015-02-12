@@ -9,6 +9,8 @@ namespace bot;
 
 /**
  * ログ出力を行うクラス
+ *
+ * @SuppressWarnings(PHPMD.TooManyMethods)
  */
 class Log {
     /**
@@ -158,6 +160,8 @@ class Log {
      * @param   string  $errfile    エラーが発生したファイルの名前
      * @param   int     $errline    エラーが発生した行番号
      * @return  bool この関数が FALSE を返した場合は、通常のエラーハンドラが処理を引き継ぎます
+     * 
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public static function errorHandlerCallback($errno, $errstr, $errfile, $errline) {
         // @で抑制されている場合等にも呼び出されるので、現在の設定と発生した内容を照らし合わせて
@@ -166,88 +170,7 @@ class Log {
             return true;
         }
 
-        $level  = 'info';
-        $die    = false;
-        $level_string = '?' . $errno . '?';
-        switch($errno) { // {{{
-        case E_ERROR: //実際にはハンドルできない
-            $level = 'error';
-            $die = true;
-            $level_string = 'E_ERROR';
-            break;
-        case E_WARNING:
-            $level = 'warning';
-            $die = false;
-            $level_string = 'E_WARNING';
-            break;
-        case E_PARSE: //実際にはハンドルできない
-            $level = 'error';
-            $die = true;
-            $level_string = 'E_PARSE';
-            break;
-        case E_NOTICE:
-            $level = 'info';
-            $die = false;
-            $level_string = 'E_NOTICE';
-            break;
-        case E_CORE_ERROR: //実際にはハンドルできない
-            $level = 'error';
-            $die = true;
-            $level_string = 'E_ERROR';
-            break;
-        case E_CORE_WARNING: //実際にはハンドルできない
-            $level = 'warning';
-            $die = false;
-            $level_string = 'E_CORE_WARNING';
-            break;
-        case E_COMPILE_ERROR: //実際にはハンドルできない
-            $level = 'error';
-            $die = true;
-            $level_string = 'E_COMPILE_ERROR';
-            break;
-        case E_COMPILE_WARNING: //実際にはハンドルできない
-            $level = 'warning';
-            $die = false;
-            $level_string = 'E_COMPILE_WARNING';
-            break;
-        case E_USER_ERROR:
-            $level = 'error';
-            $die = true;
-            $level_string = 'E_USER_ERROR';
-            break;
-        case E_USER_WARNING:
-            $level = 'warning';
-            $die = false;
-            $level_string = 'E_USER_WARNING';
-            break;
-        case E_USER_NOTICE:
-            $level = 'info';
-            $die = false;
-            $level_string = 'E_USER_NOTICE';
-            break;
-        case E_STRICT:
-            $level = 'info';
-            $die = false;
-            $level_string = 'E_STRICT';
-            break;
-        case E_RECOVERABLE_ERROR:
-            // ユーザー定義のハンドラでエラーがキャッチされなかった場合は、 E_ERROR として異常終了する
-            // とマニュアルに書いてあるので終了することにする
-            $level = 'error';
-            $die = true;
-            $level_string = 'E_RECOVERABLE_ERROR';
-            break;
-        case E_DEPRECATED:
-            $level = 'info';
-            $die = false;
-            $level_string = 'E_DEPRECATED';
-            break;
-        case E_USER_DEPRECATED:
-            $level = 'info';
-            $die = false;
-            $level_string = 'E_USER_DEPRECATED';
-            break;
-        } // }}}
+        list($level, $die, $level_string) = self::convertErrorNumber($errno);
         $output = sprintf(
             '[%s] %s at %s line %d',
             $level_string,
@@ -260,5 +183,35 @@ class Log {
             exit(1);
         }
         return true;
+    }
+
+    /**
+     * PHPの発生するエラー番号から情報を変換して取り扱えるようにする
+     *
+     * @internal
+     * @param   int     $errno      PHPの発生させたエラー番号
+     * @return  array               [ エラーレベル:string, 処理後スクリプトを終了するか:bool, エラー番号の文字列表現:string ]
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private static function convertErrorNumber($errno) {
+        switch($errno) {
+        case E_ERROR:                   return ['error',   true,  'E_ERROR'];
+        case E_WARNING:                 return ['warning', false, 'E_WARNING'];
+        case E_PARSE:                   return ['error',   true,  'E_PARSE'];
+        case E_NOTICE:                  return ['info',    false, 'E_NOTICE'];
+        case E_CORE_ERROR:              return ['error',   true,  'E_CORE_ERROR'];
+        case E_CORE_WARNING:            return ['warning', false, 'E_CORE_WARNING'];
+        case E_COMPILE_ERROR:           return ['error',   true,  'E_COMPILE_ERROR'];
+        case E_COMPILE_WARNING:         return ['warning', false, 'E_COMPILE_WARNING'];
+        case E_USER_ERROR:              return ['error',   true,  'E_USER_ERROR'];
+        case E_USER_WARNING:            return ['warning', false, 'E_USER_WARNING'];
+        case E_USER_NOTICE:             return ['info',    false, 'E_USER_NOTICE'];
+        case E_STRICT:                  return ['info',    false, 'E_STRICT'];
+        case E_RECOVERABLE_ERROR:       return ['error',   true,  'E_RECOVERABLE_ERROR'];
+        case E_DEPRECATED:              return ['info',    false, 'E_DEPRECATED'];
+        case E_USER_DEPRECATED:         return ['info',    false, 'E_USER_DEPRECATED'];
+        }
+        return ['info', false, "?{$errno}?"];
     }
 }

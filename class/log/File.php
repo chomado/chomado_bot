@@ -37,7 +37,7 @@ class File extends TargetAbstract {
      * このクラスが生成された時に対象ファイルは固定される。
      * （途中で日付が変わっても何事もなかったかのように処理される）
      */
-    private $fh = null;
+    private $log_handle = null;
 
     /**
      * コンストラクタ
@@ -49,7 +49,7 @@ class File extends TargetAbstract {
         if(!file_exists(dirname($log_file_path))) {
             mkdir(dirname($log_file_path), 0755, true);
         }
-        if(!$this->fh = fopen($log_file_path, 'c+t')) {
+        if(!$this->log_handle = fopen($log_file_path, 'c+t')) {
             throw new \Exception('Could not open log file: ' . $log_file_path);
         }
     }
@@ -61,8 +61,8 @@ class File extends TargetAbstract {
      */
     public function __destruct() {
         $this->flush();
-        fclose($this->fh);
-        $this->fh = null;
+        fclose($this->log_handle);
+        $this->log_handle = null;
     }
 
     /**
@@ -92,14 +92,14 @@ class File extends TargetAbstract {
      * バッファにたまったログをファイルに書き出す
      */
     private function flush() {
-        if(!$this->fh || !$this->buffer) {
+        if(!$this->log_handle || !$this->buffer) {
             return;
         }
-        flock($this->fh, LOCK_EX);
-        fseek($this->fh, 0, SEEK_END);
-        fwrite($this->fh, implode("\n", $this->buffer) . "\n");
-        fflush($this->fh);
-        flock($this->fh, LOCK_UN);
+        flock($this->log_handle, LOCK_EX);
+        fseek($this->log_handle, 0, SEEK_END);
+        fwrite($this->log_handle, implode("\n", $this->buffer) . "\n");
+        fflush($this->log_handle);
+        flock($this->log_handle, LOCK_UN);
         $this->buffer = [];
     }
 }
