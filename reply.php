@@ -80,7 +80,7 @@ foreach ($res as $re)
     $text = trim(preg_replace('/@[a-z0-9_]+/i', '', $re->text));
 
     // もし数字だけだったら素数判定処理をする
-    if (preg_match("/^-{0,1}[0-9]+$/", $text)) 
+    if (filter_var($text, FILTER_VALIDATE_INT)) 
     {
         $num = intval($text);
         $message = sprintf('%d の次の素数は %s です。'
