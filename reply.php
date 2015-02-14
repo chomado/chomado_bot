@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author chomado <chomado@gmail.com>
+ * @copyright 2015 by chomado <chomado@gmail.com>
+ * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
+ */
+
 namespace bot;
 use Abraham\TwitterOAuth\TwitterOAuth;
 
