@@ -37,12 +37,12 @@ class Weather
     /**
      * 華氏から摂氏に変換する
      * 
-     * @param   float   $f  華氏温度
-     * @return  float       摂氏温度
+     * @param   float   $degree_fahrenheit  華氏温度
+     * @return  float                       摂氏温度
      */
-    private function FtoC($f)
+    private static function FtoC($degree_fahrenheit)
     {
-        return ((double)$f - 32) * 5 / 9;
+        return ((double)$degree_fahrenheit - 32) * 5 / 9;
     }
 
     /**
@@ -91,7 +91,7 @@ class Weather
     {
         return [
             'weather'   => Dictionary::GetJapanese($this->info->condition->code, $this->info->forecast[1]->text)
-            , 'temp'    => $this->FtoC($this->info->condition->temp)
+            , 'temp'    => self::FtoC($this->info->condition->temp)
         ];
     }
 
@@ -104,8 +104,8 @@ class Weather
     {
         return [
             'weather'   => Dictionary::GetJapanese($this->info->forecast[1]->code, $this->info->forecast[1]->text)
-            , 'high'    => $this->FtoC($this->info->forecast[1]->high)
-            , 'low'     => $this->FtoC($this->info->forecast[1]->low)
+            , 'high'    => self::FtoC($this->info->forecast[1]->high)
+            , 'low'     => self::FtoC($this->info->forecast[1]->low)
         ];
     }
 

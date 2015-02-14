@@ -27,7 +27,7 @@ class ContextManager {
      * 前回の使用からこの秒数が経過した場合、そのコンテキストデータは無効化される。
      * 本来はdocomo側の仕様以下になるようにするのが良いが、特に見つけられなかった。
      * 
-     * @see gc()
+     * @see cleanupOldData()
      */
     const CONTEXT_EXPIRES = 1800;
 
@@ -45,7 +45,7 @@ class ContextManager {
      * @see load()
      * @see save()
      */
-    private $fh;
+    private $file_handle;
 
     /**
      * データファイルから読み込んだデータ and/or 追加/削除したデータを保持する変数
@@ -80,7 +80,7 @@ class ContextManager {
      * 保持しているデータは自動的に保存される
      */
     public function __destruct() {
-        $this->gc();
+        $this->cleanupOldData();
         $this->save();
     }
 
@@ -153,7 +153,7 @@ class ContextManager {
     /**
      * 期限のきれたデータを削除する。通常明示的に呼ぶ必要はない。
      */
-    public function gc() {
+    public function cleanupOldData() {
         if(!$this->data) {
             return;
         }
@@ -168,17 +168,17 @@ class ContextManager {
      * データファイルに保存されたデータを全て読み込む
      */
     private function load() {
-        if($this->fh) { // どうやら既に読まれている
+        if($this->file_handle) { // どうやら既に読まれている
             return;
         }
         $path = $this->getDataFilePath();
-        $this->fh = @fopen($path, 'c+');
-        if(!$this->fh) {
+        $this->file_handle = @fopen($path, 'c+');
+        if(!$this->file_handle) {
             throw new \Exception('Could not open data file: ' . $path);
         }
-        flock($this->fh, LOCK_EX);
-        fseek($this->fh, 0, SEEK_SET);
-        $json = stream_get_contents($this->fh);
+        flock($this->file_handle, LOCK_EX);
+        fseek($this->file_handle, 0, SEEK_SET);
+        $json = stream_get_contents($this->file_handle);
         $data = @json_decode($json, true);
         $this->data = is_array($data) ? $data : [];
     }
@@ -187,16 +187,16 @@ class ContextManager {
      * メモリに保持しているデータをファイルに保存する
      */
     private function save() {
-        if(!$this->fh || !is_array($this->data)) {
+        if(!$this->file_handle || !is_array($this->data)) {
             return;
         }
-        fseek($this->fh, 0, SEEK_SET);                                  // ファイルポインタを頭に戻す
-        fwrite($this->fh, json_encode($this->data, JSON_PRETTY_PRINT)); // JSONデータを作成して保存する
-        ftruncate($this->fh, ftell($this->fh));                         // ファイルサイズを正しいサイズにする
-        fflush($this->fh);
-        flock($this->fh, LOCK_UN);                                      // flockを解除する(PHP5.3.2以降、fcloseで解除されないので必須)
-        fclose($this->fh);
-        $this->fh = null;
+        fseek($this->file_handle, 0, SEEK_SET);                                     // ファイルポインタを頭に戻す
+        fwrite($this->file_handle, json_encode($this->data, JSON_PRETTY_PRINT));    // JSONデータを作成して保存する
+        ftruncate($this->file_handle, ftell($this->file_handle));                   // ファイルサイズを正しいサイズにする
+        fflush($this->file_handle);
+        flock($this->file_handle, LOCK_UN);                                         // flockを解除する(PHP5.3.2以降、fcloseで解除されないので必須)
+        fclose($this->file_handle);
+        $this->file_handle = null;
     }
 
     /**
