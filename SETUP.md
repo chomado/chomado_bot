@@ -31,12 +31,12 @@ chomado_botが依存するライブラリはレポジトリに含まれていな
 
 1. シェルを開き、レポジトリのディレクトリへ移動します。
 
-2. 次のコマンドを実行します `curl -sS https://getcomposer.org/installer | php`
-    * cURL が入っていない環境では: `php -r "readfile('https://getcomposer.org/installer');" | php`
-    * 詳しくは: https://getcomposer.org/download/
-
-3. 次のコマンドを実行します `php composer.phar install`
-
+2. 次のコマンドを実行します `make all`
+    * make が実行できない環境では次の手順で実行します
+        1. `curl -sS https://getcomposer.org/installer | php`
+            * cURL が入っていない環境では: `php -r "readfile('https://getcomposer.org/installer');" | php`
+            * 詳しくは: https://getcomposer.org/download/
+        2. `php composer.phar install`
 
 chomado_bot の実行方法
 ======================
