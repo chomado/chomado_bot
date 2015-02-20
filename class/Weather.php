@@ -6,6 +6,7 @@
  */
 
 namespace bot;
+use bot\unit\Temperature;
 use bot\weather\Dictionary;
 use Curl\Curl;
 
@@ -32,17 +33,6 @@ class Weather
     {
         $this->city = $city;
         $this->info = $this->GetWeather();// API呼び出しを1回で済ませるためにここでgetしておく
-    }
-
-    /**
-     * 華氏から摂氏に変換する
-     * 
-     * @param   float   $degree_fahrenheit  華氏温度
-     * @return  float                       摂氏温度
-     */
-    private static function FtoC($degree_fahrenheit)
-    {
-        return ((double)$degree_fahrenheit - 32) * 5 / 9;
     }
 
     /**
@@ -91,7 +81,7 @@ class Weather
     {
         return [
             'weather'   => Dictionary::GetJapanese($this->info->condition->code, $this->info->forecast[1]->text)
-            , 'temp'    => self::FtoC($this->info->condition->temp)
+            , 'temp'    => Temperature::FtoC($this->info->condition->temp)
         ];
     }
 
@@ -104,8 +94,8 @@ class Weather
     {
         return [
             'weather'   => Dictionary::GetJapanese($this->info->forecast[1]->code, $this->info->forecast[1]->text)
-            , 'high'    => self::FtoC($this->info->forecast[1]->high)
-            , 'low'     => self::FtoC($this->info->forecast[1]->low)
+            , 'high'    => Temperature::FtoC($this->info->forecast[1]->high)
+            , 'low'     => Temperature::FtoC($this->info->forecast[1]->low)
         ];
     }
 
