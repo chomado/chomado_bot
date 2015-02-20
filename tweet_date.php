@@ -7,6 +7,8 @@
 
 namespace bot;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use bot\DateTime;
+use bot\format\DateTimeFormatter;
 
 // bootstrap
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -18,11 +20,14 @@ $filelist = file(__DIR__ . '/tweet_content_data_list/list.txt');
 shuffle($filelist);
 Log::trace("list.txtは" . count($filelist) . "行です");
 
+// 現在日時
+$now = new DateTime('now', new \DateTimeZone('Asia/Tokyo'));
+
 // 呟く文成形
 $message = sprintf(
     "%s\n\n%s",
-    $filelist[0],
-    (new Date())->GetDateMessage() //『今日2015/01/20は第04週目の火曜です。今年の5.2%が経過しました。』
+    rtrim($filelist[0]),
+    DateTimeFormatter::formatDateTime($now) // 『今日2015/01/20は第04週目の火曜です。今年の5.2%が経過しました。』
 );
 
 // Twitterに接続
