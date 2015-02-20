@@ -1,8 +1,7 @@
-.DS_Store
-composer.phar
-/vendor
-/doc/api
-
 *.json
-
-tweet_content_data_list/last_id.txt
+.DS_Store
+clover.xml
+composer.phar
+/doc/api
+/tweet_content_data_list/last_id.txt
+/vendor

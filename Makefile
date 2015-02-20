@@ -14,6 +14,9 @@ depends-update: install-composer
 doc: depends-setup
 	vendor/bin/apigen generate --source="class" --destination="doc/api" --template-theme="bootstrap" --todo --tree --access-levels="public,protected,private" --internal
 
+test:
+	vendor/bin/phpunit
+
 phpmd:
 	vendor/bin/phpmd class text codesize,design,naming,unusedcode
 
