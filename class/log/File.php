@@ -92,7 +92,7 @@ class File extends TargetAbstract {
      * バッファにたまったログをファイルに書き出す
      */
     private function flush() {
-        if(!$this->log_handle || !$this->buffer) {
+        if(!$this->log_handle || empty($this->buffer)) {
             return;
         }
         flock($this->log_handle, LOCK_EX);

@@ -154,7 +154,7 @@ class ContextManager {
      * 期限のきれたデータを削除する。通常明示的に呼ぶ必要はない。
      */
     public function cleanupOldData() {
-        if(!$this->data) {
+        if(empty($this->data)) {
             return;
         }
         foreach(array_keys($this->data) as $user_id) {
