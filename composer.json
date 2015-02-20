@@ -23,6 +23,7 @@
     "require-dev": {
         "apigen/apigen": "~4.0",
         "apigen/theme-bootstrap": "~1.0",
-        "phpmd/phpmd": "~2.2"
+        "phpmd/phpmd": "~2.2",
+        "phpunit/phpunit": "4.*"
     }
 }
