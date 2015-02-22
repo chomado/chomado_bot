@@ -29,11 +29,8 @@ if(@file_exists(__DIR__ . '/runtime/last_id.txt')) {
 }
 
 // ファイルの行をランダムに抽出
-Log::trace("face_listを読み込みます。");
-$face_list = file(__DIR__ . '/tweet_content_data_list/face_list.txt');
-shuffle($face_list);
-$index = 0;
-Log::trace("face_listは" . count($face_list) . "行です");
+$randomFaces = new RandomSentenceList(__DIR__ . '/tweet_content_data_list/face_list.txt');
+Log::trace("face_listは" . count($randomFaces) . "行です");
 
 // Twitterに接続
 $config = Config::getInstance();
@@ -106,7 +103,7 @@ foreach ($res as $re)
         );
         $message = sprintf('%s %s%s'
             , $chat->ResText()
-            , $face_list[$index]
+            , $randomFaces->get()
             , PHP_EOL
             );
     }
@@ -132,7 +129,6 @@ foreach ($res as $re)
         $chat->GetChatContextId(),
         $chat->GetChatMode()
     );
-    $index = ($index + 1) % count($face_list);
 }
 
 Log::log(
