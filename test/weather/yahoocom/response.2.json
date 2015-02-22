@@ -1,0 +1,130 @@
+{
+ "query": {
+  "count": 1,
+  "created": "2015-02-25T13:14:26Z",
+  "lang": "en-US",
+  "diagnostics": {
+   "publiclyCallable": "true",
+   "url": [
+    {
+     "execution-start-time": "1",
+     "execution-stop-time": "16",
+     "execution-time": "15",
+     "content": "http://wws.geotech.yahooapis.com/v1/places.q(tokyo);start=0;count=1"
+    },
+    {
+     "execution-start-time": "17",
+     "execution-stop-time": "151",
+     "execution-time": "134",
+     "content": "http://weather.yahooapis.com/forecastrss?w=1118370"
+    }
+   ],
+   "user-time": "152",
+   "service-time": "149",
+   "build-version": "0.2.355"
+  },
+  "results": {
+   "channel": {
+    "title": "Yahoo! Weather - Tokyo, JP",
+    "link": "http://us.rd.yahoo.com/dailynews/rss/weather/Tokyo__JP/*http://weather.yahoo.com/forecast/JAXX0085_f.html",
+    "description": "Yahoo! Weather for Tokyo, JP",
+    "language": "en-us",
+    "lastBuildDate": "Wed, 25 Feb 2015 9:29 pm JST",
+    "ttl": "60",
+    "location": {
+     "city": "Tokyo",
+     "country": "Japan",
+     "region": ""
+    },
+    "units": {
+     "distance": "mi",
+     "pressure": "in",
+     "speed": "mph",
+     "temperature": "F"
+    },
+    "wind": {
+     "chill": "43",
+     "direction": "60",
+     "speed": "14"
+    },
+    "atmosphere": {
+     "humidity": "66",
+     "pressure": "30.15",
+     "rising": "0",
+     "visibility": "6.21"
+    },
+    "astronomy": {
+     "sunrise": "6:16 am",
+     "sunset": "5:30 pm"
+    },
+    "image": {
+     "title": "Yahoo! Weather",
+     "width": "142",
+     "height": "18",
+     "link": "http://weather.yahoo.com",
+     "url": "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+    },
+    "item": {
+     "title": "Conditions for Tokyo, JP at 9:29 pm JST",
+     "lat": "35.67",
+     "long": "139.74",
+     "link": "http://us.rd.yahoo.com/dailynews/rss/weather/Tokyo__JP/*http://weather.yahoo.com/forecast/JAXX0085_f.html",
+     "pubDate": "Wed, 25 Feb 2015 9:29 pm JST",
+     "condition": {
+      "code": "27",
+      "date": "Wed, 25 Feb 2015 9:29 pm JST",
+      "temp": "48",
+      "text": "Mostly Cloudy"
+     },
+     "description": "\n<img src=\"http://l.yimg.com/a/i/us/we/52/27.gif\"/><br />\n<b>Current Conditions:</b><br />\nMostly Cloudy, 48 F<BR />\n<BR /><b>Forecast:</b><BR />\nWed - Showers Late. High: 52 Low: 43<br />\nThu - Rain. High: 48 Low: 42<br />\nFri - Partly Cloudy. High: 56 Low: 37<br />\nSat - Sunny. High: 55 Low: 44<br />\nSun - Rain/Wind. High: 52 Low: 49<br />\n<br />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Tokyo__JP/*http://weather.yahoo.com/forecast/JAXX0085_f.html\">Full Forecast at Yahoo! Weather</a><BR/><BR/>\n(provided by <a href=\"http://www.weather.com\" >The Weather Channel</a>)<br/>\n",
+     "forecast": [
+      {
+       "code": "45",
+       "date": "25 Feb 2015",
+       "day": "Wed",
+       "high": "52",
+       "low": "43",
+       "text": "Showers Late"
+      },
+      {
+       "code": "12",
+       "date": "26 Feb 2015",
+       "day": "Thu",
+       "high": "48",
+       "low": "42",
+       "text": "Rain"
+      },
+      {
+       "code": "30",
+       "date": "27 Feb 2015",
+       "day": "Fri",
+       "high": "56",
+       "low": "37",
+       "text": "Partly Cloudy"
+      },
+      {
+       "code": "32",
+       "date": "28 Feb 2015",
+       "day": "Sat",
+       "high": "55",
+       "low": "44",
+       "text": "Sunny"
+      },
+      {
+       "code": "12",
+       "date": "1 Mar 2015",
+       "day": "Sun",
+       "high": "52",
+       "low": "49",
+       "text": "Rain/Wind"
+      }
+     ],
+     "guid": {
+      "isPermaLink": "false",
+      "content": "JAXX0085_2015_03_01_7_00_JST"
+     }
+    }
+   }
+  }
+ }
+}

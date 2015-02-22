@@ -1,0 +1,122 @@
+{
+ "query": {
+  "count": 1,
+  "created": "2015-02-25T11:35:18Z",
+  "lang": "en-US",
+  "diagnostics": {
+   "publiclyCallable": "true",
+   "url": {
+    "execution-start-time": "1",
+    "execution-stop-time": "37",
+    "execution-time": "36",
+    "content": "http://weather.yahooapis.com/forecastrss?w=2502265"
+   },
+   "user-time": "37",
+   "service-time": "36",
+   "build-version": "0.2.355"
+  },
+  "results": {
+   "channel": {
+    "title": "Yahoo! Weather - Sunnyvale, CA",
+    "link": "http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html",
+    "description": "Yahoo! Weather for Sunnyvale, CA",
+    "language": "en-us",
+    "lastBuildDate": "Wed, 25 Feb 2015 2:55 am PST",
+    "ttl": "60",
+    "location": {
+     "city": "Sunnyvale",
+     "country": "United States",
+     "region": "CA"
+    },
+    "units": {
+     "distance": "mi",
+     "pressure": "in",
+     "speed": "mph",
+     "temperature": "F"
+    },
+    "wind": {
+     "chill": "45",
+     "direction": "0",
+     "speed": "0"
+    },
+    "atmosphere": {
+     "humidity": "65",
+     "pressure": "30.3",
+     "rising": "2",
+     "visibility": "10"
+    },
+    "astronomy": {
+     "sunrise": "6:44 am",
+     "sunset": "5:58 pm"
+    },
+    "image": {
+     "title": "Yahoo! Weather",
+     "width": "142",
+     "height": "18",
+     "link": "http://weather.yahoo.com",
+     "url": "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+    },
+    "item": {
+     "title": "Conditions for Sunnyvale, CA at 2:55 am PST",
+     "lat": "37.37",
+     "long": "-122.04",
+     "link": "http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html",
+     "pubDate": "Wed, 25 Feb 2015 2:55 am PST",
+     "condition": {
+      "code": "33",
+      "date": "Wed, 25 Feb 2015 2:55 am PST",
+      "temp": "45",
+      "text": "Fair"
+     },
+     "description": "\n<img src=\"http://l.yimg.com/a/i/us/we/52/33.gif\"/><br />\n<b>Current Conditions:</b><br />\nFair, 45 F<BR />\n<BR /><b>Forecast:</b><BR />\nTue - Clear. High: 66 Low: 43<br />\nWed - Sunny. High: 67 Low: 46<br />\nThu - Partly Cloudy. High: 70 Low: 50<br />\nFri - Partly Cloudy. High: 60 Low: 46<br />\nSat - Mostly Sunny. High: 62 Low: 43<br />\n<br />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html\">Full Forecast at Yahoo! Weather</a><BR/><BR/>\n(provided by <a href=\"http://www.weather.com\" >The Weather Channel</a>)<br/>\n",
+     "forecast": [
+      {
+       "code": "31",
+       "date": "24 Feb 2015",
+       "day": "Tue",
+       "high": "66",
+       "low": "43",
+       "text": "Clear"
+      },
+      {
+       "code": "32",
+       "date": "25 Feb 2015",
+       "day": "Wed",
+       "high": "67",
+       "low": "46",
+       "text": "Sunny"
+      },
+      {
+       "code": "30",
+       "date": "26 Feb 2015",
+       "day": "Thu",
+       "high": "70",
+       "low": "50",
+       "text": "Partly Cloudy"
+      },
+      {
+       "code": "30",
+       "date": "27 Feb 2015",
+       "day": "Fri",
+       "high": "60",
+       "low": "46",
+       "text": "Partly Cloudy"
+      },
+      {
+       "code": "34",
+       "date": "28 Feb 2015",
+       "day": "Sat",
+       "high": "62",
+       "low": "43",
+       "text": "Mostly Sunny"
+      }
+     ],
+     "guid": {
+      "isPermaLink": "false",
+      "content": "USCA1116_2015_02_28_7_00_PST"
+     }
+    }
+   }
+  }
+ }
+}
