@@ -6,7 +6,7 @@
  */
 
 namespace bot;
-use bot\unit\Temperature;
+use bot\unit\TemperatureConverter;
 use bot\weather\Dictionary;
 use Curl\Curl;
 
@@ -81,7 +81,7 @@ class Weather
     {
         return [
             'weather'   => Dictionary::GetJapanese($this->info->condition->code, $this->info->forecast[1]->text)
-            , 'temp'    => Temperature::FtoC($this->info->condition->temp)
+            , 'temp'    => TemperatureConverter::FtoC($this->info->condition->temp)
         ];
     }
 
@@ -94,8 +94,8 @@ class Weather
     {
         return [
             'weather'   => Dictionary::GetJapanese($this->info->forecast[1]->code, $this->info->forecast[1]->text)
-            , 'high'    => Temperature::FtoC($this->info->forecast[1]->high)
-            , 'low'     => Temperature::FtoC($this->info->forecast[1]->low)
+            , 'high'    => TemperatureConverter::FtoC($this->info->forecast[1]->high)
+            , 'low'     => TemperatureConverter::FtoC($this->info->forecast[1]->low)
         ];
     }
 
