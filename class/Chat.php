@@ -49,9 +49,9 @@ class Chat
     private function GetData($apikey, $context, $mode, $nickname, $text)
     {
         $user_data = [
-            'utt'       => self::sjisSafe((string)$text),
+            'utt'       => (string)$text,
             'context'   => (string)$context,
-            'nickname'  => self::sjisSafe((string)$nickname),
+            'nickname'  => (string)$nickname,
             'mode'      => (string)$mode,
         ];
         $url = sprintf(
@@ -72,8 +72,12 @@ class Chat
         }
         Log::info("docomoからのデータ:");
         Log::info($ret);
-        if(is_object($ret) && isset($ret->utt) && $ret->utt != '') {
-            Log::success("  docomo 指示文章: " . $ret->utt);
+        if(is_object($ret) && isset($ret->utt)) {
+            if($ret->utt == '') {
+                Log::warning("  docomo 指示文章が空です");
+            } else {
+                Log::success("  docomo 指示文章: " . $ret->utt);
+            }
             return $ret;
         }
         Log::error("docomoから受け取ったデータが期待した形式ではありません:");
@@ -108,23 +112,5 @@ class Chat
      */
     public function GetChatMode() {
         return isset($this->response->mode) ? $this->response->mode : '';
-    }
-
-    /**
-     * 与えられた文字列を Shift-JIS で収まる範囲に変換する
-     *
-     * docomo APIがどうも Shift-JIS で収まらないものを与えると Bad Request で死ぬようなので
-     * とりあえず SJIS で収まるもののみを送るようにしてみる
-     *
-     * @param string $text 変換対象文字列
-     * @return string
-     */
-    private static function sjisSafe($text) {
-        mb_substitute_character(0x3013); // 変換できない文字をゲタにする
-        return mb_convert_encoding(
-            mb_convert_encoding($text, 'CP932', 'UTF-8'),
-            'UTF-8',
-            'CP932'
-        );
     }
 }
