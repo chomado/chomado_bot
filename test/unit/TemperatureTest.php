@@ -6,7 +6,7 @@ class TemperatureConverterTest extends \PHPUnit_Framework_TestCase {
     public function degreeProvider() {
         // [ [ degC, degF ], ... ] を返す
         return [
-            [ -273.15, -459.7 ], // 絶対零度
+            [ -273.15, -459.67 ], // 絶対零度
             [ -30, -22 ],
             [ -20,  -4 ],
             [ -10,  14 ],
@@ -23,7 +23,7 @@ class TemperatureConverterTest extends \PHPUnit_Framework_TestCase {
      */
     public function testFtoC($c, $f) {
         $actual = TemperatureConverter::FtoC($f);
-        $this->assertEquals($c, $actual, '', 0.1);
+        $this->assertEquals($c, $actual, '', 0.01);
     }
 
     /**
@@ -31,6 +31,6 @@ class TemperatureConverterTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCtoF($c, $f) {
         $actual = TemperatureConverter::CtoF($c);
-        $this->assertEquals($f, $actual, '', 0.1);
+        $this->assertEquals($f, $actual, '', 0.01);
     }
 }
