@@ -1,7 +1,8 @@
 <?php
+namespace test;
 use bot\DateTime as MyDateTime;
 
-class DateTimeTest extends PHPUnit_Framework_TestCase {
+class DateTimeTest extends \PHPUnit_Framework_TestCase {
     /**
      * 閏年判定
      * @dataProvider leapYearProvider

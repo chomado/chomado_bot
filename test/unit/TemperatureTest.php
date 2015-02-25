@@ -1,7 +1,8 @@
 <?php
+namespace test\unit;
 use bot\unit\TemperatureConverter;
 
-class TemperatureConverterTest extends PHPUnit_Framework_TestCase {
+class TemperatureConverterTest extends \PHPUnit_Framework_TestCase {
     public function degreeProvider() {
         // [ [ degC, degF ], ... ] を返す
         return [
