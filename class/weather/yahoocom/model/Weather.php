@@ -6,13 +6,15 @@
  */
 
 namespace bot\weather\yahoocom\model;
+
 use stdClass;
 use Exception;
 
 /**
  * 天気を保持するクラス
  */
-class Weather {
+class Weather
+{
     /** @var int 天気コード */
     private $code;
 
@@ -25,7 +27,8 @@ class Weather {
      * @param int    $code 天気コード
      * @param string $text 天気（英語）
      */
-    public function __construct($code, $text) {
+    public function __construct($code, $text)
+    {
         $this->code = (int)$code;
         $this->textEnglish = (string)$text;
     }
@@ -35,8 +38,15 @@ class Weather {
      *
      * @return string 天気コードとテキストを適当に返す。言語は英語。
      */
-    public function __toString() {
-        return json_encode(['code' => $this->code, 'text' => $this->textEnglish], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+    public function __toString()
+    {
+        return json_encode(
+            [
+                'code' => $this->code,
+                'text' => $this->textEnglish
+            ],
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        );
     }
 
     /**
@@ -44,7 +54,8 @@ class Weather {
      *
      * @return int
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
 
@@ -53,7 +64,8 @@ class Weather {
      *
      * @return string
      */
-    public function getEnglishText() {
+    public function getEnglishText()
+    {
         return $this->textEnglish;
     }
 
@@ -62,7 +74,8 @@ class Weather {
      *
      * @return string
      */
-    public function getJapaneseText() {
+    public function getJapaneseText()
+    {
         $text = self::getJapaneseTextByCode($this->code);
         return ($text !== false)
             ? $text
@@ -75,7 +88,8 @@ class Weather {
      * @param int $code 天気コード
      * @return string|false
      */
-    private static function getJapaneseTextByCode($code) {
+    private static function getJapaneseTextByCode($code)
+    {
         $dictionary = [
             "竜巻",                     // 0   tornado
             "台風",                     // 1   tropical storm

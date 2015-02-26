@@ -1,9 +1,12 @@
 <?php
 namespace test\weather\yahoocom;
+
 use bot\weather\yahoocom\Response;
 
-class ResponseTest extends \PHPUnit_Framework_TestCase {
-    public function testLoadFromJson1() {
+class ResponseTest extends \PHPUnit_Framework_TestCase
+{
+    public function testLoadFromJson1()
+    {
         $o = new Response(file_get_contents(__DIR__ . '/response.1.json'));
         $now = $o->getCondition();
         $this->assertInstanceOf('stdClass', $now);
@@ -30,7 +33,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1424861700, $at->getTimestamp());
     }
 
-    public function testLoadFromJson2() {
+    public function testLoadFromJson2()
+    {
         $o = new Response(file_get_contents(__DIR__ . '/response.2.json'));
         $now = $o->getCondition();
         $this->assertEquals(27, $now->weather->getCode());
@@ -48,12 +52,14 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1424867340, $at->getTimestamp());
     }
 
-    public function testEmptyJson() {
+    public function testEmptyJson()
+    {
         $this->setExpectedException('Exception');
         $o = new Response('{}');
     }
 
-    public function testBrokenInput() {
+    public function testBrokenInput()
+    {
         $this->setExpectedException('Exception');
         $o = new Response('abcdefg');
     }

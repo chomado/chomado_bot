@@ -10,41 +10,44 @@ namespace bot\log;
 /**
  * ログをコンソール出力するクラス
  */
-class Console extends TargetAbstract {
+class Console extends TargetAbstract
+{
     /**
      * 最小のログレベル
      *
      * @var int
      * @see getMinLogLevel()
-     * 
+     *
      * @todo 設定でデバッグモードか切り替えられるように
      */
-    private $min_log_level = self::LOG_LEVEL_DEBUG;
+    private $minLogLevel = self::LOG_LEVEL_DEBUG;
 
     /**
      * {@inheritdoc}
      *
      */
-    public function getMinLogLevel() {
-        return $this->min_log_level;
+    public function getMinLogLevel()
+    {
+        return $this->minLogLevel;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function writeImpl($time, $text, $level, $int_level) {
+    public function writeImpl($time, $text, $level, $intLevel)
+    {
         printf(
             "[%s] [%s] %s\n",
             date('Y-m-d H:i:sO', $time),
-            $this->decorate(substr($level . '       ', 0, 7), $int_level),
-            $this->decorate($text, $int_level)
+            $this->decorate(substr($level . '       ', 0, 7), $intLevel),
+            $this->decorate($text, $intLevel)
         );
     }
 
     /**
      * エスケープシーケンス用カラーテーブル
      */
-    private static $foreground_colors = [
+    private static $foregroundColors = [
         'black'         => '0;30',
         'blue'          => '0;34',
         'green'         => '0;32',
@@ -66,7 +69,7 @@ class Console extends TargetAbstract {
     /**
      * エスケープシーケンス用カラーテーブル
      */
-    private static $background_colors = [
+    private static $backgroundColors = [
         'black'        => '40',
         'red'          => '41',
         'green'        => '42',
@@ -86,7 +89,7 @@ class Console extends TargetAbstract {
      *  ]
      * ```
      */
-    private static $error_level_color_map = [
+    private static $errorLevelColorMap = [
         self::LOG_LEVEL_TRACE   => [ 'dark_gray',   null ],
         self::LOG_LEVEL_DEBUG   => [ 'light_gray',  null ],
         self::LOG_LEVEL_INFO    => [ 'white',       null ],
@@ -99,23 +102,24 @@ class Console extends TargetAbstract {
      * ログレベルに合わせてテキストを装飾する
      *
      * @param   string  $text       対象テキスト
-     * @param   int     $int_level  ログレベル定数
+     * @param   int     $intLevel  ログレベル定数
      * @return  string  装飾されたテキスト
      */
-    private function decorate($text, $int_level) {
-        $colors = isset(self::$error_level_color_map[$int_level]) ? self::$error_level_color_map[$int_level] : null;
-        if(!$colors) {
+    private function decorate($text, $intLevel)
+    {
+        $colors = isset(self::$errorLevelColorMap[$intLevel]) ? self::$errorLevelColorMap[$intLevel] : null;
+        if (!$colors) {
             return $text;
         }
 
         $ret = '';
         // 文字色
-        if(isset(self::$foreground_colors[$colors[0]])) {
-            $ret .= "\033[" . self::$foreground_colors[$colors[0]] . "m";
+        if (isset(self::$foregroundColors[$colors[0]])) {
+            $ret .= "\033[" . self::$foregroundColors[$colors[0]] . "m";
         }
         // 背景色
-        if(isset(self::$background_colors[$colors[1]])) {
-            $ret .= "\033[" . self::$background_colors[$colors[1]] . "m";
+        if (isset(self::$backgroundColors[$colors[1]])) {
+            $ret .= "\033[" . self::$backgroundColors[$colors[1]] . "m";
         }
         $ret .= $text;
         // 色を戻す

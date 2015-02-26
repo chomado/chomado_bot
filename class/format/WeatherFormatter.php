@@ -6,13 +6,15 @@
  */
 
 namespace bot\format;
+
 use DateTimeZone;
 use bot\weather\yahoocom\Response as WeatherResponse;
 
 /**
  * 天気情報整形クラス
  */
-class WeatherFormatter {
+class WeatherFormatter
+{
     /**
      * 天気情報を成形して取得する
      *
@@ -21,7 +23,8 @@ class WeatherFormatter {
      * @param   \DateTimeZone                   $timeZone   表示に利用するタイムゾーン
      * @return  string
      */
-    public static function formatForWeatherTweet(WeatherResponse $weather, $location, DateTimeZone $timeZone) {
+    public static function formatForWeatherTweet(WeatherResponse $weather, $location, DateTimeZone $timeZone)
+    {
         $condition = $weather->getCondition();
         $tomorrow = $weather->getTomorrow();
 
@@ -29,8 +32,11 @@ class WeatherFormatter {
         $updatedAt = clone $condition->updatedAt;
         $updatedAt->setTimezone($timeZone);
 
+        $format = "%1\$sの%2\$s現在の天気は、%3\$s(%4\$.1f℃)です。\n" .
+                  "明日は%5\$sで、最高気温%6\$.1f℃、最低気温%7\$.1f℃です。";
+
         return sprintf(
-            "%1\$sの%2\$s現在の天気は、%3\$s(%4\$.1f℃)です。\n明日は%5\$sで、最高気温%6\$.1f℃、最低気温%7\$.1f℃です。",
+            $format,
             $location,
             $updatedAt->format('H:i'),
             $condition->weather->getJapaneseText(),

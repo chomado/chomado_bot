@@ -1,9 +1,12 @@
 <?php
 namespace test\weather\yahoocom\model;
+
 use bot\weather\yahoocom\model\Temperature;
 
-class TemperatureTest extends \PHPUnit_Framework_TestCase {
-    public function degreeProvider() {
+class TemperatureTest extends \PHPUnit_Framework_TestCase
+{
+    public function degreeProvider()
+    {
         return [
             [ -273.15, -459.67 ],
             [ -30, -22 ],
@@ -20,7 +23,8 @@ class TemperatureTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider degreeProvider
      */
-    public function testCelsiusInput($c, $f) {
+    public function testCelsiusInput($c, $f)
+    {
         $temp = new Temperature($c, 'C');
         $this->assertEquals($c, $temp->getAsCelsius(), '', 0.01);
         $this->assertEquals($f, $temp->getAsFahrenheit(), '', 0.01);
@@ -32,7 +36,8 @@ class TemperatureTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider degreeProvider
      */
-    public function testFahrenheitInput($c, $f) {
+    public function testFahrenheitInput($c, $f)
+    {
         $temp = new Temperature($f, 'F');
         $this->assertEquals($c, $temp->getAsCelsius(), '', 0.01);
         $this->assertEquals($f, $temp->getAsFahrenheit(), '', 0.01);
@@ -41,7 +46,8 @@ class TemperatureTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($toString, $temp->__toString());
     }
 
-    public function testUnknownUnit() {
+    public function testUnknownUnit()
+    {
         $this->setExpectedException('Exception');
         $temp = new Temperature(1, 'A');
     }

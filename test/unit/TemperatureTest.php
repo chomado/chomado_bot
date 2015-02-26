@@ -1,9 +1,12 @@
 <?php
 namespace test\unit;
+
 use bot\unit\TemperatureConverter;
 
-class TemperatureConverterTest extends \PHPUnit_Framework_TestCase {
-    public function degreeProvider() {
+class TemperatureConverterTest extends \PHPUnit_Framework_TestCase
+{
+    public function degreeProvider()
+    {
         // [ [ degC, degF ], ... ] を返す
         return [
             [ -273.15, -459.67 ], // 絶対零度
@@ -21,16 +24,18 @@ class TemperatureConverterTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider degreeProvider
      */
-    public function testFtoC($c, $f) {
-        $actual = TemperatureConverter::FtoC($f);
+    public function testFtoC($c, $f)
+    {
+        $actual = TemperatureConverter::convertFToC($f);
         $this->assertEquals($c, $actual, '', 0.01);
     }
 
     /**
      * @dataProvider degreeProvider
      */
-    public function testCtoF($c, $f) {
-        $actual = TemperatureConverter::CtoF($c);
+    public function testCtoF($c, $f)
+    {
+        $actual = TemperatureConverter::convertCToF($c);
         $this->assertEquals($f, $actual, '', 0.01);
     }
 }

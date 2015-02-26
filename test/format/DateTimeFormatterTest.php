@@ -1,9 +1,12 @@
 <?php
 namespace test\format;
+
 use bot\format\DateTimeFormatter;
 
-class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase {
-    public function formatProvider() {
+class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
+{
+    public function formatProvider()
+    {
         return [
             [ gmmktime(0, 0, 0, 2, 1, 2015), '2015/02/01', 5, '日',  8.5 ],
             [ gmmktime(0, 0, 0, 2, 8, 2015), '2015/02/08', 6, '日', 10.4 ],
@@ -13,7 +16,8 @@ class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider formatProvider
      */
-    public function testFormatDateTime($timestamp, $date, $week, $wday, $percent) {
+    public function testFormatDateTime($timestamp, $date, $week, $wday, $percent)
+    {
         $timeZoneUTC = new \DateTimeZone('UTC');
         $target = new \bot\DateTime("@{$timestamp}", $timeZoneUTC);
         $formatted = DateTimeFormatter::formatDateTime($target);

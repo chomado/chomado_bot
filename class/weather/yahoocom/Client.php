@@ -6,6 +6,7 @@
  */
 
 namespace bot\weather\yahoocom;
+
 use Curl\Curl;
 use bot\Log;
 
@@ -25,7 +26,8 @@ class Client
      *
      * @param string $city 問い合わせ対象の都市名
      */
-    public function __construct($city) {
+    public function __construct($city)
+    {
         $this->city = $city;
     }
 
@@ -35,17 +37,18 @@ class Client
      * @return \bot\weather\yahoocom\Response
      * @throws \Exception 問い合わせに失敗した場合
      */
-    public function query() {
-        $query_uri = self::buildQueryUrl([
+    public function query()
+    {
+        $queryUri = self::buildQueryUrl([
             'q'      => $this->buildYql($this->city),
             'format' => 'json',
             'env'    => 'store://datatables.org/alltableswithkeys',
         ]);
         
-        Log::info(__METHOD__ . ': Query URL: ' . $query_uri);
+        Log::info(__METHOD__ . ': Query URL: ' . $queryUri);
         $curl = new Curl();
-        $curl->get($query_uri);
-        if($curl->error) {
+        $curl->get($queryUri);
+        if ($curl->error) {
             $msg = 'YQL Query Error: ' . $curl->error_code . ': ' . $curl->error_message;
             Log::error(__METHOD__ . ': ' . $msg);
             Log::error($curl->raw_response);
@@ -60,7 +63,8 @@ class Client
      * @param string $city "tokyo"のような都市名
      * @return string YQL
      */
-    private static function buildYql($city) {
+    private static function buildYql($city)
+    {
         return sprintf(
             'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="%s")',
             addslashes($city)
@@ -73,7 +77,8 @@ class Client
      * @param array $parameters Yahoo!仕様の送信パラメータ
      * @return string URL
      */
-    private static function buildQueryUrl(array $parameters) {
+    private static function buildQueryUrl(array $parameters)
+    {
         return self::ENDPOINT_URL . '?' . http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
     }
 }

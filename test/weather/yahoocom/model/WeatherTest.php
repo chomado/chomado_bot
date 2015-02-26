@@ -1,9 +1,12 @@
 <?php
 namespace test\weather\yahoocom\model;
+
 use bot\weather\yahoocom\model\Weather;
 
-class WeatherTest extends \PHPUnit_Framework_TestCase {
-    public function conditionProvider() {
+class WeatherTest extends \PHPUnit_Framework_TestCase
+{
+    public function conditionProvider()
+    {
         return [
             [   0, 'Tornado',       '竜巻'],
             [   2, 'Hurricane',     'ハリケーン'],
@@ -16,7 +19,8 @@ class WeatherTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider conditionProvider
      */
-    public function testWeather($code, $textEn, $textJa) {
+    public function testWeather($code, $textEn, $textJa)
+    {
         $cond = new Weather($code, $textEn);
         $this->assertEquals($code, $cond->getCode());
         $this->assertEquals($textEn, $cond->getEnglishText());
@@ -24,10 +28,11 @@ class WeatherTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotEmpty($cond->__toString());
     }
 
-    public function knownCodesProvider() {
+    public function knownCodesProvider()
+    {
         // return [[1], [2], ...]
         $ret = [];
-        foreach(range(0, 47) as $i) {
+        foreach (range(0, 47) as $i) {
             $ret[] = [$i];
         }
         $ret[] = [3200];
@@ -37,7 +42,8 @@ class WeatherTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider knownCodesProvider
      */
-    public function testKnownCodes($code) {
+    public function testKnownCodes($code)
+    {
         $cond = new Weather($code, 'test');
         $unknown = "?{$code}?";
         $this->assertTrue(strpos($cond->getJapaneseText(), $unknown) === false);

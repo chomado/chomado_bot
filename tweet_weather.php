@@ -5,11 +5,14 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
 use Abraham\TwitterOAuth\TwitterOAuth;
-use bot\RandomSentenceList;
-use bot\format\WeatherFormatter;
-use bot\weather\yahoocom\Client as WeatherClient;
+use chomado\bot\Config;
+use chomado\bot\DateTime as MyDateTime;
+use chomado\bot\Log;
+use chomado\bot\RandomSentenceList;
+use chomado\bot\TwitterUtil;
+use chomado\bot\format\WeatherFormatter;
+use chomado\bot\weather\yahoocom\Client as WeatherClient;
 
 // bootstrap
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -19,19 +22,26 @@ Log::setErrorHandler();
 $randomComments = new RandomSentenceList(__DIR__ . '/tweet_content_data_list/list.txt');
 Log::trace("list.txtは" . count($randomComments) . "行です");
 
-$timeZoneJst = new \DateTimeZone('Asia/Tokyo');
-$now = new DateTime('now', $timeZoneJst);
+$timeZoneJst = new DateTimeZone('Asia/Tokyo');
+$now = new MyDateTime('now', $timeZoneJst);
 
 // 天気情報
 $weather = (new WeatherClient('tokyo'))->query();
 $formattedWeather = WeatherFormatter::formatForWeatherTweet($weather, '東京', $timeZoneJst);
 
 // 呟く文成形 
+// ============================================================================
+// (*ﾟ▽ﾟ* っ)З ちょまぎょ!
+//
+// 現在時刻は17:55です。
+// 東京の17:30現在の天気は、にわか雨(7.2℃)です。
+// 明日はところにより曇り(昼)で、最高気温12.8℃、最低気温3.3℃です。
+// ============================================================================
 $message = sprintf(
     "%s\n\n%s\n%s",
-    $randomComments->get(), // (*ﾟ▽ﾟ* っ)З ちょまぎょ!
+    $randomComments->get(),
     '現在時刻は' . $now->format('H:i') . 'です。',
-    $formattedWeather //『東京の現在(00:03)の天気はうす曇り(6.1℃)です。明日はPM Rainで、最高5.6℃、最低3.9℃です』
+    $formattedWeather
 );
 
 // Twitterに接続

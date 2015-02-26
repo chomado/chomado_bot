@@ -10,7 +10,8 @@ namespace bot\log;
 /**
  * ログ出力クラスが実装しなければならないインタフェース
  */
-interface TargetInterface {
+interface TargetInterface
+{
     /**
      * ログを出力する
      *

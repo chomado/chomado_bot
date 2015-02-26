@@ -18,8 +18,8 @@ class DateTime extends \DateTime
     /**
      * コンストラクタ
      *
-     * @param   string          $time       日付/時刻を示す文字列
-     * @param   \DateTimeZone   $timeZone   $timeのタイムゾーンを示すオブジェクト。省略時は日本標準時
+     * @param string        $time     日付/時刻を示す文字列
+     * @param \DateTimeZone $timeZone $timeのタイムゾーンを示すオブジェクト。省略時はJST
      */
     public function __construct($time = 'now', \DateTimeZone $timeZone = null)
     {
@@ -31,7 +31,8 @@ class DateTime extends \DateTime
      *
      * @return int 日数
      */
-    public function getDaysInYear() {
+    public function getDaysInYear()
+    {
         return 365 + ($this->isLeapYear() ? 1 : 0);
     }
 
@@ -40,7 +41,8 @@ class DateTime extends \DateTime
      *
      * @return int
      */
-    public function getDayOfYear() {
+    public function getDayOfYear()
+    {
         return (int)$this->format('z');
     }
 
@@ -49,7 +51,8 @@ class DateTime extends \DateTime
      *
      * @return float
      */
-    public function getElapsedSecondsOfDay() {
+    public function getElapsedSecondsOfDay()
+    {
         $hours      = (int)$this->format('G');
         $minutes    = (int)$this->format('i');
         $seconds    = (int)$this->format('s');

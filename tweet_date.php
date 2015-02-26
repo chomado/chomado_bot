@@ -5,11 +5,13 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
 use Abraham\TwitterOAuth\TwitterOAuth;
-use bot\DateTime;
-use bot\RandomSentenceList;
-use bot\format\DateTimeFormatter;
+use chomado\bot\Config;
+use chomado\bot\DateTime as MyDateTime;
+use chomado\bot\Log;
+use chomado\bot\RandomSentenceList;
+use chomado\bot\TwitterUtil;
+use chomado\bot\format\DateTimeFormatter;
 
 // bootstrap
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -20,13 +22,18 @@ $randomComments = new RandomSentenceList(__DIR__ . '/tweet_content_data_list/lis
 Log::trace("list.txtは" . count($randomComments) . "行です");
 
 // 現在日時
-$now = new DateTime('now', new \DateTimeZone('Asia/Tokyo'));
+$now = new MyDateTime('now', new DateTimeZone('Asia/Tokyo'));
 
 // 呟く文成形
+// ============================================================================
+// (顔文字)
+// 
+// 今日2015/01/20は第04週目の火曜です。今年の5.2%が経過しました。
+// ============================================================================
 $message = sprintf(
     "%s\n\n%s",
     $randomComments->get(),
-    DateTimeFormatter::formatDateTime($now) // 『今日2015/01/20は第04週目の火曜です。今年の5.2%が経過しました。』
+    DateTimeFormatter::formatDateTime($now)
 );
 
 // Twitterに接続
