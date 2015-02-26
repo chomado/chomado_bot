@@ -1,7 +1,9 @@
 <?php
-namespace test\format;
+namespace chomado\bottest\format;
 
-use bot\format\DateTimeFormatter;
+use DateTimeZone;
+use chomado\bot\DateTime;
+use chomado\bot\format\DateTimeFormatter;
 
 class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,8 +20,8 @@ class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatDateTime($timestamp, $date, $week, $wday, $percent)
     {
-        $timeZoneUTC = new \DateTimeZone('UTC');
-        $target = new \bot\DateTime("@{$timestamp}", $timeZoneUTC);
+        $timeZoneUTC = new DateTimeZone('UTC');
+        $target = new DateTime("@{$timestamp}", $timeZoneUTC);
         $formatted = DateTimeFormatter::formatDateTime($target);
         
         $this->assertTrue(is_string($formatted));

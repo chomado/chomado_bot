@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
 
 /**
  * 口から無限に文が出てくるクラス

@@ -1,7 +1,7 @@
 <?php
-namespace test\unit;
+namespace chomado\bottest\unit;
 
-use bot\unit\TemperatureConverter;
+use chomado\bot\unit\TemperatureConverter;
 
 class TemperatureConverterTest extends \PHPUnit_Framework_TestCase
 {

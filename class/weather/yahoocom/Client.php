@@ -5,10 +5,10 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\weather\yahoocom;
+namespace chomado\bot\weather\yahoocom;
 
 use Curl\Curl;
-use bot\Log;
+use chomado\bot\Log;
 
 /**
  * 天気情報取得クラス

@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
 
 /**
  * ログ出力を行うクラス

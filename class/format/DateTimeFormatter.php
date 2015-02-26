@@ -5,9 +5,9 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\format;
+namespace chomado\bot\format;
 
-use bot\DateTime;
+use chomado\bot\DateTime;
 
 /**
  * 日時情報整形クラス

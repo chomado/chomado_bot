@@ -5,11 +5,11 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\weather\yahoocom;
+namespace chomado\bot\weather\yahoocom;
 
 use stdClass;
 use Exception;
-use bot\DateTime;
+use chomado\bot\DateTime;
 
 /**
  * Yahoo!から取得した天気情報を表すクラス

@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
@@ -31,9 +31,7 @@ class TwitterUtil
                 sleep(1);
             }
             $result = $connection->post('statuses/update', $param);
-            if (is_object($result) &&
-               isset($result->id_str) &&
-               isset($result->text)) {
+            if (is_object($result) && isset($result->id_str) && isset($result->text)) {
                 Log::success("Tweet を投稿しました");
                 Log::success(['id' => $result->id_str, 'text' => $result->text]);
                 return true;

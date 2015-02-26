@@ -5,10 +5,10 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\format;
+namespace chomado\bot\format;
 
 use DateTimeZone;
-use bot\weather\yahoocom\Response as WeatherResponse;
+use chomado\bot\weather\yahoocom\Response as WeatherResponse;
 
 /**
  * 天気情報整形クラス
@@ -18,9 +18,9 @@ class WeatherFormatter
     /**
      * 天気情報を成形して取得する
      *
-     * @param   \bot\weather\yahoocom\Response  $data       Y!Weatherレスポンスデータ
-     * @param   string                          $location   地名情報 e.g. 東京
-     * @param   \DateTimeZone                   $timeZone   表示に利用するタイムゾーン
+     * @param   \chomado\bot\weather\yahoocom\Response $data Y!Weatherレスポンスデータ
+     * @param   string        $location 地名情報 e.g. 東京
+     * @param   \DateTimeZone $timeZone 表示に利用するタイムゾーン
      * @return  string
      */
     public static function formatForWeatherTweet(WeatherResponse $weather, $location, DateTimeZone $timeZone)

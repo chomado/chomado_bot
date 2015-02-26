@@ -1,7 +1,7 @@
 <?php
-namespace test\weather\yahoocom;
+namespace chomado\bottest\weather\yahoocom;
 
-use bot\weather\yahoocom\Client;
+use chomado\bot\weather\yahoocom\Client;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ob_start();
         try {
             $ret = (new Client('tokyo'))->query();
-            $this->assertInstanceOf('bot\weather\yahoocom\Response', $ret);
+            $this->assertInstanceOf('chomado\bot\weather\yahoocom\Response', $ret);
             ob_end_clean();
         } catch (Exception $e) {
             ob_end_clean();

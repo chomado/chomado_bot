@@ -5,11 +5,11 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\weather\yahoocom\model;
+namespace chomado\bot\weather\yahoocom\model;
 
 use stdClass;
 use Exception;
-use bot\unit\TemperatureConverter;
+use chomado\bot\unit\TemperatureConverter;
 
 /**
  * 温度を保持するクラス

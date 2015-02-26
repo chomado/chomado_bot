@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\chat;
+namespace chomado\bot\chat;
 
 /**
  * docomo対話APIによるチャット時のコンテキストを保持するためのクラス

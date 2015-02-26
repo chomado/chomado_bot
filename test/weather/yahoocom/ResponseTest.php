@@ -1,7 +1,7 @@
 <?php
-namespace test\weather\yahoocom;
+namespace chomado\bottest\weather\yahoocom;
 
-use bot\weather\yahoocom\Response;
+use chomado\bot\weather\yahoocom\Response;
 
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,9 +10,9 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $o = new Response(file_get_contents(__DIR__ . '/response.1.json'));
         $now = $o->getCondition();
         $this->assertInstanceOf('stdClass', $now);
-        $this->assertInstanceOf('bot\weather\yahoocom\model\Weather', $now->weather);
-        $this->assertInstanceOf('bot\weather\yahoocom\model\Temperature', $now->temp);
-        $this->assertInstanceOf('bot\DateTime', $now->updatedAt);
+        $this->assertInstanceOf('chomado\bot\weather\yahoocom\model\Weather', $now->weather);
+        $this->assertInstanceOf('chomado\bot\weather\yahoocom\model\Temperature', $now->temp);
+        $this->assertInstanceOf('chomado\bot\DateTime', $now->updatedAt);
         $this->assertEquals(33, $now->weather->getCode());
         $this->assertEquals('Fair', $now->weather->getEnglishText());
         $this->assertEquals(45, $now->temp->getAsFahrenheit());
@@ -20,16 +20,16 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         $tomorrow = $o->getTomorrow();
         $this->assertInstanceOf('stdClass', $tomorrow);
-        $this->assertInstanceOf('bot\weather\yahoocom\model\Weather', $tomorrow->weather);
-        $this->assertInstanceOf('bot\weather\yahoocom\model\Temperature', $tomorrow->tempHigh);
-        $this->assertInstanceOf('bot\weather\yahoocom\model\Temperature', $tomorrow->tempLow);
+        $this->assertInstanceOf('chomado\bot\weather\yahoocom\model\Weather', $tomorrow->weather);
+        $this->assertInstanceOf('chomado\bot\weather\yahoocom\model\Temperature', $tomorrow->tempHigh);
+        $this->assertInstanceOf('chomado\bot\weather\yahoocom\model\Temperature', $tomorrow->tempLow);
         $this->assertEquals(32, $tomorrow->weather->getCode());
         $this->assertEquals('Sunny', $tomorrow->weather->getEnglishText());
         $this->assertEquals(67, $tomorrow->tempHigh->getAsFahrenheit());
         $this->assertEquals(46, $tomorrow->tempLow->getAsFahrenheit());
 
         $at = $o->getUpdatedAt();
-        $this->assertInstanceOf('bot\DateTime', $at);
+        $this->assertInstanceOf('chomado\bot\DateTime', $at);
         $this->assertEquals(1424861700, $at->getTimestamp());
     }
 

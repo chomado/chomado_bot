@@ -1,17 +1,9 @@
 <?php
-use bot\RandomSentenceList;
+namespace chomado\bottest;
 
-/*
-   public function current() {
-   public function key() {
-   public function next() {
-   public function rewind() {
-   public function valid() {
-   public function get() {
+use chomado\bot\RandomSentenceList;
 
-*/
-
-class RandomSentenceListTest extends PHPUnit_Framework_TestCase
+class RandomSentenceListTest extends \PHPUnit_Framework_TestCase
 {
     private static $testListPath;
     private $target;

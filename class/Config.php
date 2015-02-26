@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
 
 /**
  * 設定読み込み・取得用クラス

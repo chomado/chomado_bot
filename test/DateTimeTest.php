@@ -1,7 +1,7 @@
 <?php
-namespace test;
+namespace chomado\bottest;
 
-use bot\DateTime as MyDateTime;
+use chomado\bot\DateTime as MyDateTime;
 
 class DateTimeTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,7 +1,7 @@
 <?php
-namespace test\weather\yahoocom\model;
+namespace chomado\bottest\weather\yahoocom\model;
 
-use bot\weather\yahoocom\model\Temperature;
+use chomado\bot\weather\yahoocom\model\Temperature;
 
 class TemperatureTest extends \PHPUnit_Framework_TestCase
 {

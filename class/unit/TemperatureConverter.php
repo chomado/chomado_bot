@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\unit;
+namespace chomado\bot\unit;
 
 /**
  * 温度変換クラス

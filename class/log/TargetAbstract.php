@@ -5,7 +5,7 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\log;
+namespace chomado\bot\log;
 
 /**
  * ログ出力クラスの基本的な処理を実装する抽象クラス
