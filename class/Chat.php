@@ -5,7 +5,8 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
+
 use Curl\Curl;
 
 /**
@@ -28,11 +29,11 @@ class Chat
      * @param string $mode      会話のモード(API仕様参照
      * @param string $nickname  会話している人間側の名前
      * @param string $text      人間側の入力テキスト
-     * @see GetData()
+     * @see getData()
      */
     public function __construct($apikey, $context, $mode, $nickname, $text)
     {
-        $this->response = $this->GetData($apikey, $context, $mode, $nickname, $text);
+        $this->response = $this->getData($apikey, $context, $mode, $nickname, $text);
     }
 
     /**
@@ -46,9 +47,9 @@ class Chat
      * @return stdClass         レスポンスのJSONをデコードしたオブジェクト
      * @throws \Exception       サーバとの通信に失敗した場合
      */
-    private function GetData($apikey, $context, $mode, $nickname, $text)
+    private function getData($apikey, $context, $mode, $nickname, $text)
     {
-        $user_data = [
+        $userData = [
             'utt'       => (string)$text,
             'context'   => (string)$context,
             'nickname'  => (string)$nickname,
@@ -61,19 +62,23 @@ class Chat
         Log::info("docomo対話APIを呼び出します");
         Log::info("URL: " . $url);
         Log::info("パラメータ:");
-        Log::info($user_data);
+        Log::info($userData);
 
         $curl = new Curl();
         $curl->setHeader('Content-Type', 'application/json; charset=UTF-8');
-        $ret = $curl->post($url, json_encode($user_data));
-        if($curl->error) {
-            Log::error("docomo対話APIの呼び出しに失敗しました: " . $curl->error_code . ': ' . $curl->error_message);
+        $ret = $curl->post($url, json_encode($userData));
+        if ($curl->error) {
+            Log::error(sprintf(
+                "docomo対話APIの呼び出しに失敗しました: %d: %s",
+                $curl->error_code,
+                $curl->error_message
+            ));
             throw new \Exception('docomo dialogue error: ' . $curl->error_code . ': ' . $curl->error_message);
         }
         Log::info("docomoからのデータ:");
         Log::info($ret);
-        if(is_object($ret) && isset($ret->utt)) {
-            if($ret->utt == '') {
+        if (is_object($ret) && isset($ret->utt)) {
+            if ($ret->utt == '') {
                 Log::warning("  docomo 指示文章が空です");
             } else {
                 Log::success("  docomo 指示文章: " . $ret->utt);
@@ -90,7 +95,7 @@ class Chat
      *
      * @return string 会話内容
      */
-    public function ResText()
+    public function resText()
     {
         $message = sprintf('%s%s', $this->response->utt, PHP_EOL);
         return $message;
@@ -101,7 +106,8 @@ class Chat
      *
      * @return string
      */
-    public function GetChatContextId() {
+    public function getChatContextId()
+    {
         return isset($this->response->context) ? $this->response->context : '';
     }
 
@@ -110,7 +116,8 @@ class Chat
      *
      * @return string "dialog" or "srtr" ( or "" )
      */
-    public function GetChatMode() {
+    public function getChatMode()
+    {
         return isset($this->response->mode) ? $this->response->mode : '';
     }
 }

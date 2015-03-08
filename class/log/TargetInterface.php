@@ -5,12 +5,13 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\log;
+namespace chomado\bot\log;
 
 /**
  * ログ出力クラスが実装しなければならないインタフェース
  */
-interface TargetInterface {
+interface TargetInterface
+{
     /**
      * ログを出力する
      *

@@ -17,8 +17,12 @@ doc: depends-setup
 test:
 	vendor/bin/phpunit
 
-phpmd:
-	vendor/bin/phpmd class text codesize,design,naming,unusedcode
+check-style:
+	vendor/bin/phpmd class text codesize,controversial,design,naming,unusedcode
+	vendor/bin/phpcs --standard=PSR2 class reply.php tweet_date.php tweet_weather.php
+
+fix-style:
+	vendor/bin/phpcbf --standard=PSR2 class reply.php tweet_date.php tweet_weather.php test
 
 clean:
 	rm -rf doc vendor composer.phar
@@ -26,4 +30,4 @@ clean:
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
 
-.PHONY: all init install-composer depends-setup depends-update doc test phpmd clean
+.PHONY: all init install-composer depends-setup depends-update doc test style clean

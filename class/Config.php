@@ -5,12 +5,13 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
 
 /**
  * 設定読み込み・取得用クラス
  */
-class Config {
+class Config
+{
     /**
      * コンフィグファイルへの相対パス
      */
@@ -35,8 +36,9 @@ class Config {
      *
      * @return self
      */
-    public static function getInstance() {
-        if(!self::$instance) {
+    public static function getInstance()
+    {
+        if (!self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
@@ -45,7 +47,8 @@ class Config {
     /**
      * コンストラクタ
      */
-    private function __construct() {
+    private function __construct()
+    {
         $this->load();
     }
 
@@ -54,7 +57,8 @@ class Config {
      *
      * @return string
      */
-    public function getTwitterConsumerKey() {
+    public function getTwitterConsumerKey()
+    {
         return $this->get('twitter', 'consumer_key');
     }
 
@@ -63,7 +67,8 @@ class Config {
      *
      * @return string
      */
-    public function getTwitterConsumerSecret() {
+    public function getTwitterConsumerSecret()
+    {
         return $this->get('twitter', 'consumer_secret');
     }
 
@@ -72,7 +77,8 @@ class Config {
      *
      * @return string
      */
-    public function getTwitterAccessToken() {
+    public function getTwitterAccessToken()
+    {
         return $this->get('twitter', 'access_token');
     }
 
@@ -81,7 +87,8 @@ class Config {
      *
      * @return string
      */
-    public function getTwitterAccessTokenSecret() {
+    public function getTwitterAccessTokenSecret()
+    {
         return $this->get('twitter', 'access_token_secret');
     }
 
@@ -90,18 +97,20 @@ class Config {
      *
      * @return string
      */
-    public function getTwitterScreenName() {
+    public function getTwitterScreenName()
+    {
         return $this->get('twitter', 'screen_name');
     }
 
     /**
      * bot のメンテナの screen_name を取得
      *
-     * メンテしてる人の@id. 
+     * メンテしてる人の@id.
      *
      * @return string
      */
-    public function getTwitterOwnerScreenName() {
+    public function getTwitterOwnerScreenName()
+    {
         return $this->get('twitter', 'owner_screen_name');
     }
     /**
@@ -109,7 +118,8 @@ class Config {
      *
      * @return string
      */
-    public function getDocomoDialogueApiKey() {
+    public function getDocomoDialogueApiKey()
+    {
         return $this->get('docomo', 'dialogue_api_key');
     }
 
@@ -118,14 +128,15 @@ class Config {
      *
      * @throw \Exception    設定ファイルが存在しないときや壊れているときに例外を投げる
      */
-    private function load() {
-        $ini_file_path = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_FILE_PATH;
-        if(!@file_exists($ini_file_path)) {
+    private function load()
+    {
+        $iniFilePath = __DIR__ . '/' . self::CONFIG_FILE_PATH;
+        if (!@file_exists($iniFilePath)) {
             throw new \Exception('Configuration file does not exist');
         }
 
-        $ini = @parse_ini_file($ini_file_path, true);
-        if($ini === false) {
+        $ini = @parse_ini_file($iniFilePath, true);
+        if ($ini === false) {
             throw new \Exception('Configuration file format is broken.');
         }
         $this->data = $ini;
@@ -139,12 +150,12 @@ class Config {
      * @return string           設定の値
      * @throws \Exception       指定された設定が存在しないときは例外を投げる
      */
-    private function get($section, $key) {
-        if(is_array($this->data) &&
+    private function get($section, $key)
+    {
+        if (is_array($this->data) &&
            isset($this->data[$section]) &&
            is_array($this->data[$section]) &&
-           array_key_exists($key, $this->data[$section]))
-        {
+           array_key_exists($key, $this->data[$section])) {
             return $this->data[$section][$key];
         }
         throw new \Exception("Configuration [{$section}] {$key} does not exist");

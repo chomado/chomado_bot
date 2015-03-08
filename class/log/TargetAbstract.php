@@ -5,12 +5,13 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot\log;
+namespace chomado\bot\log;
 
 /**
  * ログ出力クラスの基本的な処理を実装する抽象クラス
  */
-abstract class TargetAbstract implements TargetInterface {
+abstract class TargetAbstract implements TargetInterface
+{
     /** 分岐などを追うためのログレベル */
     const LOG_LEVEL_TRACE   = 0;
 
@@ -46,7 +47,8 @@ abstract class TargetAbstract implements TargetInterface {
      *
      * @return int  ログレベル
      */
-    public function getMaxLogLevel() {
+    public function getMaxLogLevel()
+    {
         return self::LOG_LEVEL_MAX;
     }
 
@@ -57,26 +59,28 @@ abstract class TargetAbstract implements TargetInterface {
      * @param   int     $time       イベント発生時間のタイムスタンプ
      * @param   string  $text       ログ内容
      * @param   string  $level      ログレベル
-     * @param   int     $int_level  ログレベル（整数値に変換したもの）
+     * @param   int     $intLevel   ログレベル（整数値に変換したもの）
      */
-    abstract public function writeImpl($time, $text, $level, $int_level);
+    abstract public function writeImpl($time, $text, $level, $intLevel);
 
     /**
      * {@inheritdoc}
      */
-    public function write($data, $level) {
+    public function write($data, $level)
+    {
         $now = time();
-        $int_level = $this->convertStringErrorLevelToInt($level);
-        $min_level = $this->getMinLogLevel();
-        $max_level = $this->getMaxLogLevel();
-        if($int_level < $min_level || $int_level > $max_level) {
+        $intLevel = $this->convertStringErrorLevelToInt($level);
+        $minLevel = $this->getMinLogLevel();
+        $maxLevel = $this->getMaxLogLevel();
+        if ($intLevel < $minLevel || $intLevel > $maxLevel) {
             return;
         }
         $text = $this->stringifyObject($data);
 
-        // 実装クラスが楽になるように複数行にまたがるものはあらかじめ各行に分割してから送る
-        foreach(preg_split('/\x0d\x0a|\x0d|\x0a/', $text) as $line) {
-            $this->writeImpl($now, $line, $level, $int_level);
+        // 実装クラスが楽になるように、
+        // 複数行にまたがるものはあらかじめ各行に分割してから送る
+        foreach (preg_split('/\x0d\x0a|\x0d|\x0a/', $text) as $line) {
+            $this->writeImpl($now, $line, $level, $intLevel);
         }
     }
 
@@ -86,15 +90,23 @@ abstract class TargetAbstract implements TargetInterface {
      * @param   string  $level  ログレベル
      * @return  int     ログレベル（整数値に変換したもの）
      */
-    protected function convertStringErrorLevelToInt($level) {
+    protected function convertStringErrorLevelToInt($level)
+    {
         switch(strtolower($level)) {
-        case 'trace':   return self::LOG_LEVEL_TRACE;
-        case 'debug':   return self::LOG_LEVEL_DEBUG;
-        case 'info':    return self::LOG_LEVEL_INFO;
-        case 'success': return self::LOG_LEVEL_SUCCESS;
-        case 'warning': return self::LOG_LEVEL_WARNING;
-        case 'error':   return self::LOG_LEVEL_ERROR;
-        default:        return self::LOG_LEVEL_INFO;
+            case 'trace':
+                return self::LOG_LEVEL_TRACE;
+            case 'debug':
+                return self::LOG_LEVEL_DEBUG;
+            case 'info':
+                return self::LOG_LEVEL_INFO;
+            case 'success':
+                return self::LOG_LEVEL_SUCCESS;
+            case 'warning':
+                return self::LOG_LEVEL_WARNING;
+            case 'error':
+                return self::LOG_LEVEL_ERROR;
+            default:
+                return self::LOG_LEVEL_INFO;
         }
     }
 
@@ -104,20 +116,25 @@ abstract class TargetAbstract implements TargetInterface {
      * @param   mixed   $data   ログ出力を指示されたオブジェクト
      * @return                  ログ出力用に整形された文字列
      */
-    protected function stringifyObject($data) {
-        if($data === null) { // is_scalar は NULL をスカラ扱いしない
+    protected function stringifyObject($data)
+    {
+        if ($data === null) {
+// is_scalar は NULL をスカラ扱いしない
             return '(NULL)';
-        } elseif(is_bool($data)) { // boolean をそのまま stringify すると "0"/"1" で誰も幸せにならない
+        } elseif (is_bool($data)) {
+// boolean をそのまま stringify すると "0"/"1" で誰も幸せにならない
             return $data ? '(TRUE)' : '(FALSE)';
-        } elseif(is_resource($data)) { // is_scalarはリソース型にfalseを返すがこの挙動に依存するなと書いてあるので先に判定
+        } elseif (is_resource($data)) {
+// is_scalarはリソース型にfalseを返すがこの挙動に依存するなと書いてあるので先に判定
             return '<resource:' . get_resource_type($data) . '>';
-        } elseif(is_scalar($data)) { // integer, float, string
+        } elseif (is_scalar($data)) {
+// integer, float, string
             return (string)$data;
-        } elseif(is_object($data) && is_callable([$data, '__toString'])) {
+        } elseif (is_object($data) && is_callable([$data, '__toString'])) {
             return '<class:' . get_class($data) . '> ' . $data->__toString();
         }
         $text = '';
-        if(is_object($data)) {
+        if (is_object($data)) {
             $text = '<class:' . get_class($data) . '> ';
         }
         return $text . json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);

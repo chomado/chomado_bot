@@ -17,13 +17,14 @@
     },
     "autoload": {
         "psr-4": {
-            "bot\\": "class/"
+            "chomado\\bot\\": "class/"
         }
     },
     "require-dev": {
         "apigen/apigen": "~4.0",
         "apigen/theme-bootstrap": "~1.0",
         "phpmd/phpmd": "~2.2",
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "4.*",
+        "squizlabs/php_codesniffer": "2.*"
     }
 }

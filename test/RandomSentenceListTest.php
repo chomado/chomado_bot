@@ -1,21 +1,15 @@
 <?php
-use bot\RandomSentenceList;
+namespace chomado\bottest;
 
-/*
-   public function current() {
-   public function key() {
-   public function next() {
-   public function rewind() {
-   public function valid() {
-   public function get() {
+use chomado\bot\RandomSentenceList;
 
-*/
-
-class RandomSentenceListTest extends PHPUnit_Framework_TestCase {
+class RandomSentenceListTest extends \PHPUnit_Framework_TestCase
+{
     private static $testListPath;
     private $target;
 
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass()
+    {
         self::$testListPath = tempnam(sys_get_temp_dir(), 'phpunit-');
         file_put_contents(
             self::$testListPath,
@@ -29,27 +23,32 @@ class RandomSentenceListTest extends PHPUnit_Framework_TestCase {
         );
     }
 
-    public static function tearDownAfterClass() {
-        if(self::$testListPath != '' && file_exists(self::$testListPath)) {
+    public static function tearDownAfterClass()
+    {
+        if (self::$testListPath != '' && file_exists(self::$testListPath)) {
             unlink(self::$testListPath);
         }
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->target = new RandomSentenceList(self::$testListPath);
     }
 
-    public function testLoadAndCount() {
+    public function testLoadAndCount()
+    {
         $this->assertEquals(3, $this->target->count());
         $this->assertEquals($this->target->count(), count($this->target));
     }
 
-    public function testNotExists() {
+    public function testNotExists()
+    {
         $this->setExpectedException('Exception');
         $target = new RandomSentenceList(sys_get_temp_dir() . '/not-exists-' . hash('sha256', uniqid()));
     }
 
-    public function testIteratorInterface() {
+    public function testIteratorInterface()
+    {
         $this->assertInstanceOf('Iterator', $this->target);
         $i = 0;
         $counts = [
@@ -57,13 +56,13 @@ class RandomSentenceListTest extends PHPUnit_Framework_TestCase {
             '123' => 0,
             'あいう' => 0,
         ];
-        foreach($this->target as $j => $text) {
+        foreach ($this->target as $j => $text) {
             $this->assertEquals($i, $j); // next() が特に意味も無くインクリメントしているはずなので $i と key() は等しくなる
             $this->assertRegExp('/^ABC|123|あいう$/u', $text);
             ++$counts[$text];
             ++$i;
             // 放っておくと無限に続くので打ち切る
-            if($i >= 50) {
+            if ($i >= 50) {
                 break;
             }
         }
@@ -73,7 +72,8 @@ class RandomSentenceListTest extends PHPUnit_Framework_TestCase {
         $this->assertGreaterThanOrEqual(5, $counts['あいう']);
     }
 
-    public function testIteratorRewind() {
+    public function testIteratorRewind()
+    {
         $this->assertEquals(0, $this->target->key());
         $this->target->next();
         $this->assertEquals(1, $this->target->key());
@@ -81,31 +81,34 @@ class RandomSentenceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $this->target->key());
     }
 
-    public function testIteratorEmptyValid() {
+    public function testIteratorEmptyValid()
+    {
         $path = tempnam(sys_get_temp_dir(), 'phpunit-');
         touch($path);
         $target = new RandomSentenceList($path);
         $this->assertFalse($target->valid());
     }
 
-    public function testGet() {
+    public function testGet()
+    {
         $counts = [
             'ABC' => 0,
             '123' => 0,
             'あいう' => 0,
         ];
-        for($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; ++$i) {
             $text = $this->target->get();
             $this->assertRegExp('/^ABC|123|あいう$/u', $text);
             ++$counts[$text];
         }
         // このくらいは全部出てるんじゃないかなあという
-        $this->assertGreaterThanOrEqual(3, $counts['ABC']);
-        $this->assertGreaterThanOrEqual(3, $counts['123']);
-        $this->assertGreaterThanOrEqual(3, $counts['あいう']);
+        $this->assertGreaterThanOrEqual(2, $counts['ABC']);
+        $this->assertGreaterThanOrEqual(2, $counts['123']);
+        $this->assertGreaterThanOrEqual(2, $counts['あいう']);
     }
 
-    public function testGetEmpty() {
+    public function testGetEmpty()
+    {
         $this->setExpectedException('Exception');
         $path = tempnam(sys_get_temp_dir(), 'phpunit-');
         touch($path);

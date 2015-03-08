@@ -1,11 +1,15 @@
 <?php
-use bot\unit\TemperatureConverter;
+namespace chomado\bottest\unit;
 
-class TemperatureConverterTest extends PHPUnit_Framework_TestCase {
-    public function degreeProvider() {
+use chomado\bot\unit\TemperatureConverter;
+
+class TemperatureConverterTest extends \PHPUnit_Framework_TestCase
+{
+    public function degreeProvider()
+    {
         // [ [ degC, degF ], ... ] を返す
         return [
-            [ -273.15, -459.7 ], // 絶対零度
+            [ -273.15, -459.67 ], // 絶対零度
             [ -30, -22 ],
             [ -20,  -4 ],
             [ -10,  14 ],
@@ -20,16 +24,18 @@ class TemperatureConverterTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider degreeProvider
      */
-    public function testFtoC($c, $f) {
-        $actual = TemperatureConverter::FtoC($f);
-        $this->assertEquals($c, $actual, '', 0.1);
+    public function testFtoC($c, $f)
+    {
+        $actual = TemperatureConverter::convertFToC($f);
+        $this->assertEquals($c, $actual, '', 0.01);
     }
 
     /**
      * @dataProvider degreeProvider
      */
-    public function testCtoF($c, $f) {
-        $actual = TemperatureConverter::CtoF($c);
-        $this->assertEquals($f, $actual, '', 0.1);
+    public function testCtoF($c, $f)
+    {
+        $actual = TemperatureConverter::convertCToF($c);
+        $this->assertEquals($f, $actual, '', 0.01);
     }
 }

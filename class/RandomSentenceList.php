@@ -5,12 +5,13 @@
  * @license https://github.com/chomado/chomado_bot/blob/master/LICENSE MIT
  */
 
-namespace bot;
+namespace chomado\bot;
 
 /**
  * 口から無限に文が出てくるクラス
  */
-class RandomSentenceList implements \Countable, \Iterator {
+class RandomSentenceList implements \Countable, \Iterator
+{
     /** @var int イテレータインタフェースのkey()で返すためだけのindex値 */
     private $index = 0;
 
@@ -19,10 +20,11 @@ class RandomSentenceList implements \Countable, \Iterator {
 
     /**
      * コンストラクタ
-     * 
+     *
      * @param   string  $filePath   1行1形式のセンテンスリストを格納したファイルへのパス
      */
-    public function __construct($filePath) {
+    public function __construct($filePath)
+    {
         $this->loadFile($filePath);
     }
 
@@ -34,57 +36,63 @@ class RandomSentenceList implements \Countable, \Iterator {
      *
      * @return int
      */
-    public function count() {
+    public function count()
+    {
         return count($this->sentences);
     }
 
     /**
-     * イテレータインタフェース使用時、「今」のセンテンスを取得
+     * (iterator) 「今」のセンテンスを取得
      *
      * @return string
      */
-    public function current() {
+    public function current()
+    {
         return $this->get();
     }
 
     /**
-     * イテレータインタフェース使用時、「今」のキー（インデックス）を取得
+     * (iterator) 「今」のキー（インデックス）を取得
      *
      * rewind() されてから何回取得されたかを取得できるが何の意味も無い
      *
      * @return int
      */
-    public function key() {
+    public function key()
+    {
         return $this->index;
     }
 
     /**
-     * イテレータインタフェース使用時、カーソルを進める
+     * (iterator) カーソルを進める
      *
      * @return void
      */
-    public function next() {
+    public function next()
+    {
         ++$this->index;
     }
 
     /**
-     * イテレータインタフェース使用時、カーソルを先頭に巻き戻す
+     * (iterator) カーソルを先頭に巻き戻す
      *
      * @return void
      */
-    public function rewind() {
+    public function rewind()
+    {
         $this->index = 0;
     }
 
-    /** 
-     * イテレータインタフェース使用時、現在のカーソル位置が有効な場所を指しているか返す
+    /**
+     * (iterator) 現在のカーソル位置が有効な場所を指しているか返す
      *
      * このクラスは無限に値を返し続けるので、文リストに1つでもあれば常にtrue、
      * 空の文リストであれば常にfalseを返す
      *
      * @return bool
      */
-    public function valid() {
+    public function valid()
+    {
         return !empty($this->sentences);
     }
 
@@ -94,8 +102,9 @@ class RandomSentenceList implements \Countable, \Iterator {
      * @return string
      * @throws \Exception 空の文リストを保持していれば例外を投げる
      */
-    public function get() {
-        if(empty($this->sentences)) {
+    public function get()
+    {
+        if (empty($this->sentences)) {
             throw new \Exception('There is no sentences');
         }
         $random = mt_rand(0, $this->count() - 1);
@@ -109,15 +118,16 @@ class RandomSentenceList implements \Countable, \Iterator {
      * @return  void
      * @throws  \Exception  ファイルが開けない時、例外を投げる
      */
-    private function loadFile($filePath) {
+    private function loadFile($filePath)
+    {
         $this->sentences = [];
         $this->index = 0;
-        if(!$handle = @fopen($filePath, 'r')) {
+        if (!$handle = @fopen($filePath, 'r')) {
             throw new \Exception('Could not open sentence list file');
         }
-        while(!feof($handle)) {
+        while (!feof($handle)) {
             $line = trim(fgets($handle));
-            if($line !== '' && $line[0] !== '#') {
+            if ($line !== '' && $line[0] !== '#') {
                 $this->sentences[] = $line;
             }
         }

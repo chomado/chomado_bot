@@ -1,8 +1,14 @@
 <?php
-use bot\format\DateTimeFormatter;
+namespace chomado\bottest\format;
 
-class DateTimeFormatterTest extends PHPUnit_Framework_TestCase {
-    public function formatProvider() {
+use DateTimeZone;
+use chomado\bot\DateTime;
+use chomado\bot\format\DateTimeFormatter;
+
+class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
+{
+    public function formatProvider()
+    {
         return [
             [ gmmktime(0, 0, 0, 2, 1, 2015), '2015/02/01', 5, '日',  8.5 ],
             [ gmmktime(0, 0, 0, 2, 8, 2015), '2015/02/08', 6, '日', 10.4 ],
@@ -12,9 +18,10 @@ class DateTimeFormatterTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider formatProvider
      */
-    public function testFormatDateTime($timestamp, $date, $week, $wday, $percent) {
-        $timeZoneUTC = new \DateTimeZone('UTC');
-        $target = new bot\DateTime("@{$timestamp}", $timeZoneUTC);
+    public function testFormatDateTime($timestamp, $date, $week, $wday, $percent)
+    {
+        $timeZoneUTC = new DateTimeZone('UTC');
+        $target = new DateTime("@{$timestamp}", $timeZoneUTC);
         $formatted = DateTimeFormatter::formatDateTime($target);
         
         $this->assertTrue(is_string($formatted));
