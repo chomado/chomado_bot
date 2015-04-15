@@ -1,0 +1,3 @@
+0,30 * * * *  chomadocker scl enable rh-php56 'php /home/chomadocker/bot/tweet_date.php >/dev/null 2>&1'
+15,45 * * * * chomadocker scl enable rh-php56 'php /home/chomadocker/bot/tweet_weather.php >/dev/null 2>&1'
+*/5 * * * *   chomadocker scl enable rh-php56 'php /home/chomadocker/bot/reply.php >/dev/null 2>&1'

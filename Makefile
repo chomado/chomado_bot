@@ -11,6 +11,9 @@ depends-update: install-composer
 	php composer.phar self-update
 	php composer.phar update
 
+docker:
+	sudo docker build -t chomado/bot:latest .
+
 doc: depends-setup
 	vendor/bin/apigen generate --source="class" --destination="doc/api" --template-theme="bootstrap" --todo --tree --access-levels="public,protected,private" --internal
 
