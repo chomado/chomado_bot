@@ -49,12 +49,12 @@ class Client
         $curl = new Curl();
         $curl->get($queryUri);
         if ($curl->error) {
-            $msg = 'YQL Query Error: ' . $curl->error_code . ': ' . $curl->error_message;
+            $msg = 'YQL Query Error: ' . $curl->errorCode . ': ' . $curl->errorMessage;
             Log::error(__METHOD__ . ': ' . $msg);
-            Log::error($curl->raw_response);
+            Log::error($curl->rawResponse);
             throw new \Exception($msg);
         }
-        return new Response($curl->raw_response);
+        return new Response($curl->rawResponse);
     }
 
     /**

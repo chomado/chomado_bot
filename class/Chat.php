@@ -70,10 +70,10 @@ class Chat
         if ($curl->error) {
             Log::error(sprintf(
                 "docomo対話APIの呼び出しに失敗しました: %d: %s",
-                $curl->error_code,
-                $curl->error_message
+                $curl->errorCode,
+                $curl->errorMessage
             ));
-            throw new \Exception('docomo dialogue error: ' . $curl->error_code . ': ' . $curl->error_message);
+            throw new \Exception('docomo dialogue error: ' . $curl->errorCode . ': ' . $curl->errorMessage);
         }
         Log::info("docomoからのデータ:");
         Log::info($ret);
