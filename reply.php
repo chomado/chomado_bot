@@ -84,6 +84,12 @@ foreach ($res as $re) {
         continue;
     }
 
+    // 10分以上昔のツイートには反応しない
+    if (strtotime($re->created_at) < time() - 600) {
+        Log::info("投稿が古すぎるので無視します");
+        continue;
+    }
+
     // リプライ本文から余計なものを取り除く.
     // 例: "@chomado_bot こんにちは" → "こんにちは"
     $text = trim(preg_replace('/@[a-z0-9_]+/i', '', $re->text));

@@ -1,0 +1,6 @@
+.git
+.gitignore
+clover.xml
+composer.phar
+runtime
+vendor

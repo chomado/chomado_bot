@@ -12,8 +12,8 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pcre": "*",
-        "abraham/twitteroauth": "0.4.*",
-        "php-curl-class/php-curl-class": "~2.1"
+        "abraham/twitteroauth": "^0.6.1",
+        "php-curl-class/php-curl-class": "^4.8"
     },
     "autoload": {
         "psr-4": {
@@ -21,9 +21,9 @@
         }
     },
     "require-dev": {
-        "apigen/apigen": "~4.0",
-        "apigen/theme-bootstrap": "~1.0",
-        "phpmd/phpmd": "~2.2",
+        "apigen/apigen": "^4.1",
+        "apigen/theme-bootstrap": "^1.1",
+        "phpmd/phpmd": "^2.3",
         "phpunit/phpunit": "4.*",
         "squizlabs/php_codesniffer": "2.*"
     }
